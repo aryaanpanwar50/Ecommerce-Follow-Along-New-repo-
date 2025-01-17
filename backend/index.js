@@ -8,8 +8,14 @@ app.get('/',(req,res)=>{
 });
 
 
-const port  = process.env.PORT || 3000
+const PORT  = process.env.PORT || 3000
 
-app.listen(port,()=>{
-    console.log(`Server at http://localhost:${port}`);
+app.listen(PORT, async () => {
+    try {
+        // Attempt to connect to the database before starting the server
+        await connectDB();
+        console.log(`Server is running on port ${PORT}`);
+    } catch (error) {
+        console.error("Failed to start the server:", error.message);
+    }
 });
