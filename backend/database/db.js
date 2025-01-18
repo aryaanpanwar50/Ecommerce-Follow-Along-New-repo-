@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(
-            "mongodb+srv://admin:admin@cluster0.o7aj0.mongodb.net/eom",
+            "mongodb+srv://aryaanpanwar:JqrXRjVkOcZpeEDH@cluster0.jeto4.mongodb.net/mydb",
             { useNewUrlParser: true, useUnifiedTopology: true }
         );
         console.log("MongoDB Connected:");
