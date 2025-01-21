@@ -1,33 +1,34 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-// Define the User Schema
-const userSchema = new mongoose.Schema(
-    {
-        name: {
-            type: String,
-            required: [true, "Name is required"],
-            trim: true,
-        },
-        email: {
-            type: String,
-            required: [true, "Email is required"],
-            unique: true,
-        },
-        password: {
-            type: String,
-            required: [true, "Password is required"],
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        match:[/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,"Please enter a valid email"]
+    },
+    password: {
+        type: String, // Add type here
+        required: true,
+        minelength:8,
+        validate: {
+            validator: validatePassword,
+            message:"Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character"
         },
     },
-    {
-        timestamps: true, // Automatically adds createdAt and updatedAt fields
-    }
-);
 
-// Create and export the User Model
-const User = mongoose.model("User", userSchema);
+});
 
-export default User;
+function validatePassword(password){
+    return(
+        /[A-Z]/.test(password) &&
+        /[a-z]/.test(password) &&
+        /[0-9]/.test(password) &&
+        /[!@#$%^&*(){}<>?]/.test(password)
+    )
+    
+}
+
+
+
+
+module.exports = mongoose.model('User', userSchema);

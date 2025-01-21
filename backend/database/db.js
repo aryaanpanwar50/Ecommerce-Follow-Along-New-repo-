@@ -1,19 +1,13 @@
-// database/db.js
+const mongoose = require('mongoose');
 
-import mongoose from "mongoose";
+const connectDB = async () =>{
+    try{
+       await mongoose.connect("mongodb+srv://aryaanpanwar:JqrXRjVkOcZpeEDH@cluster0.jeto4.mongodb.net/mydb4")
+        console.log("MongoDB is connected")
 
-// Database Connection
-const connectDB = async () => {
-    try {
-        const conn = await mongoose.connect(
-            "mongodb+srv://aryaanpanwar:JqrXRjVkOcZpeEDH@cluster0.jeto4.mongodb.net/mydb",
-            { useNewUrlParser: true, useUnifiedTopology: true }
-        );
-        console.log("MongoDB Connected:");
-    } catch (error) {
-        console.error(`Error: ${error.message}`);
-        process.exit(1); // Exit the process with failure
+    }catch(error){
+        console.error("MongoDB connection failed")
     }
 };
 
-export default connectDB;
+module.exports = connectDB;

@@ -1,34 +1,33 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import connectDB from './database/db.js'; // Ensure correct extension (.js)
-import userRoutes from './routes/user.routes.js'; // Ensure correct extension (.js)
-
-// Load environment variables from .env file
-dotenv.config();
-
+const express = require('express');
+const connectDB = require('./database/db')
+const userRouter = require("./routes/user.routes")
 const app = express();
+require('dotenv').config();
+const PORT = process.env.PORT 
 
-// Middleware to parse JSON
+app.get('/',(req,res)=>{
+    try{
+        res.send("Server is ready")
+        console.log("My first test API is working")
+    }catch(error){
+        res.status(500).send("Server Error")
+    }
+    
+});
+
 app.use(express.json());
 
-// Default Route
-app.get("/", (req, res) => {
-    res.send("Server is running and connected to the database!");
-});
+app.use("/api",userRouter);
 
-// Mount the user routes
-app.use("/api/users", userRoutes);
 
-// Start the Server
-const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, async () => {
-    try {
-        // Attempt to connect to the database before starting the server
+app.listen(PORT,async ()=>{
+    try{
         await connectDB();
-        console.log(`Server is running on port ${PORT}`);
-    } catch (error) {
-        console.error("Failed to start the server:", error.message);
+        console.log(`Listening on port ${PORT}`)
+
+    }catch(error){
+        console.error("Serve failed to start")
     }
-});
+
+})
