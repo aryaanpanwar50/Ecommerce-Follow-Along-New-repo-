@@ -224,3 +224,43 @@ Updated the README file to summarize the progress made in this milestone.
 * **Testing:** Verified that the form correctly submits product details and handles image uploads without issues.
 * **GitHub Updates:** Committed and pushed changes to the repository, including the product form implementation.
 
+------
+
+# Milestone 10: Product Schema and API Endpoint Creation
+
+## 1. Product Schema
+* Defined the product data structure using Mongoose.
+* **Details**: Created a schema to store product information such as name, price, description, and category.
+
+## 2. API Endpoint
+* Created a POST endpoint to handle product data submission.
+* **Details**: The endpoint allows clients to send product data to the server for storage in the database.
+
+## 3. Data Validation
+* Ensured that only valid data is saved in the database.
+* **Details**: Implemented validation checks to verify data integrity before saving.
+
+## 4. Testing
+* Verified the functionality of the POST endpoint using Postman.
+* **Details**: Tested various scenarios to ensure the endpoint works as expected.
+
+## 5. Future Enhancements
+* Discussed potential improvements, such as adding admin restrictions and user roles.
+* **Details**: Explored ways to restrict access to certain endpoints based on user roles (e.g., admin vs. regular user).
+
+## 6. GitHub Updates
+* Committed all changes related to the product schema and endpoint to GitHub.
+* **Details**: Updated the repository with the latest code and documentation.
+
+---
+
+## Why This Approach Works
+
+### Clarity and Readability
+* The milestones are clearly defined and written in simple language for easy understanding.
+
+### Organization and Structure
+* The use of headings and bullet points ensures a logical flow of information.
+
+### Future-Proofing
+* Discussing future enhancements ensures scalability and adaptability of the project.
