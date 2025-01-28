@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+
 export default function AddProduct() {
   const [image, setImage] = useState(null);
 
@@ -54,6 +55,14 @@ export default function AddProduct() {
                 <option value="books">Books</option>
               </select>
             </div>
+            <div className="mb-8">
+            <label className="block text-sm font-medium text-gray-300 mb-2">Price</label>
+            <input
+              type="number"
+              className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
+              placeholder="Enter product price"
+            />
+          </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
