@@ -179,6 +179,7 @@ Verified that the system correctly handles both successful and failed login atte
 
 Committed and pushed the changes to the repository, including the new login endpoint and validation logic.
 Updated the README to reflect the progress made in this milestone.
+
  ----
 # Milestone 8: Card Component Creation and Homepage Layout
 
