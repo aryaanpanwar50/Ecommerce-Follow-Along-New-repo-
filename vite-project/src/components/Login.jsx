@@ -1,6 +1,14 @@
-
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    navigate('/e');
+  };
+
+
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4 font-['SF_Pro_Display',-apple-system,BlinkMacSystemFont,system-ui,sans-serif]">
             <div className="max-w-lg w-full">
@@ -68,6 +76,7 @@ export default function Login() {
 
                     <button
                         type="submit"
+                        onClick={handleSignIn}
                         className="w-full py-3 px-4 text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black transform transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-purple-500/20"
                     >
                         Sign in
