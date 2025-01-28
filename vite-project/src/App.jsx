@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Homepage from './components/HomePage';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import AddProduct from './components/AddProduct';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
               <Footer />
             </div>
           } />
+          <Route path="/add-product" element={<AddProduct />} />
         </Routes>
       </Router>
     </div>

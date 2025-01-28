@@ -1,4 +1,5 @@
-import React from 'react';
+
+import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 
 const Header = () => {
@@ -8,19 +9,20 @@ const Header = () => {
         <h1 className="text-2xl font-bold">E-Commerce</h1>
         <nav>
           <ul className="flex space-x-4">
-            <li><a href="#" className="hover:text-gray-400">Home</a></li>
-            <li><a href="#" className="hover:text-gray-400">Shop</a></li>
-            <li><a href="#" className="hover:text-gray-400">About</a></li>
-            <li><a href="#" className="hover:text-gray-400">Contact</a></li>
+            <li><Link to="/" className="hover:text-gray-400">Home</Link></li>
+            <li><Link to="#" className="hover:text-gray-400">Shop</Link></li>
+            <li><Link to="#" className="hover:text-gray-400">About</Link></li>
+            <li><Link to="#" className="hover:text-gray-400">Contact</Link></li>
+            <li><Link to="/add-product" className="hover:text-gray-400">Add Product</Link></li>
           </ul>
         </nav>
         <div className="flex items-center space-x-4">
-          <a href="#" className="hover:text-gray-400 flex items-center">
+          <Link to="/login" className="hover:text-gray-400 flex items-center">
             <FaUser size={20} className="mr-1" /> Login
-          </a>
-          <a href="#" className="hover:text-gray-400 flex items-center">
+          </Link>
+          <Link to="/cart" className="hover:text-gray-400 flex items-center">
             <FaShoppingCart size={20} className="mr-1" /> Cart
-          </a>
+          </Link>
         </div>
       </div>
     </header>
