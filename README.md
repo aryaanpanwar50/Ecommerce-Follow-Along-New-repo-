@@ -214,3 +214,13 @@ Verified that all product details are displayed accurately and that the user int
 
 Committed and pushed the changes to the repository, including the new card component and homepage layout.
 Updated the README file to summarize the progress made in this milestone.
+
+# Milestone 9: Product Form Creation and Image Uploads
+
+* **Product Form:** Designed a form to capture product details such as name, description, price, and category.
+* **Multiple Image Uploads:** Enabled users to upload multiple images for each product.
+* **Form Validation:** Implemented validation to ensure all required fields are filled and images are uploaded correctly.
+* **Admin Access:** Discussed restricting product uploads to admin users or shop profile users.
+* **Testing:** Verified that the form correctly submits product details and handles image uploads without issues.
+* **GitHub Updates:** Committed and pushed changes to the repository, including the product form implementation.
+
