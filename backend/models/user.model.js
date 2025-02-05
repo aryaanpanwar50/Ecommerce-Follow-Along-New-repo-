@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String, // Add type here
         required: true,
-        minelength:8,
+        minlength:8,
         validate: {
             validator: validatePassword,
             message:"Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character"

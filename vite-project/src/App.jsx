@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Login from './components/Login';
+import Signup from './components/Signup';
 import Homepage from './components/HomePage';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -12,8 +12,8 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/e" element={
+          <Route path="/login" element={<Signup />} />
+          <Route path="/home" element={
             <div>
               <Header />
               <Homepage />

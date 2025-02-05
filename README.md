@@ -1,266 +1,213 @@
 # Ecommerce-Follow-Along
 
 ## Project Description
-
-This project is a full-fledged E-Commerce Application using the MERN stack (MongoDB, Express.js, React.js, and Node.js). It's designed to provide hands-on experience with real-world development concepts and tools, focusing on building a scalable and feature-rich online shopping platform.
+This project is a full-fledged E-Commerce Application built using the **MERN stack** (MongoDB, Express.js, React.js, and Node.js). It provides hands-on experience with real-world development concepts, focusing on building a scalable and feature-rich online shopping platform.
 
 ## Key Features
-
-- Built using MERN Stack (MongoDB, Express.js, React.js, Node.js)
-- REST API Creation for scalable backend services
-- User Authentication for secure login and registration
-- Database Schema Design using MongoDB
-- Robust Backend Development with Node.js and Express
+* **Built using MERN Stack** (MongoDB, Express.js, React.js, Node.js)
+* **REST API Creation** for scalable backend services
+* **User Authentication** for secure login and registration
+* **Database Schema Design** using MongoDB
+* **Robust Backend Development** with Node.js and Express
 
 ---
 
 ## Milestone 1: Project Overview
-
-In this initial milestone, we covered the following aspects of the project:
-
-1. *Introduction to MERN Stack*: 
-   - Overview of MongoDB, Express.js, React.js, and Node.js
-   - Understanding the benefits of using a JavaScript-only approach for full-stack development
-
-2. *REST API Structure and Endpoints*:
-   - Introduction to RESTful architecture
-   - Planning API endpoints for user authentication, product management, and order handling
-
-3. *Database Schema Design Basics*:
-   - Introduction to MongoDB schema design
-   - Understanding the structure and relationships of data in the e-commerce context
-
-4. *Role of Authentication*:
-   - Importance of user authentication in web applications
-   - Overview of implementing secure login and registration functionalities
-
-5. *Project Vision and Goals*:
-   - Detailed explanation of the e-commerce application's overall vision
-   - Discussion of key features to be implemented in upcoming milestones
-
-6. *Live Demonstration*:
-   - Observation of the completed application's functionality
-   - Overview of user interface and backend integration
-
----
+* **Introduction to MERN Stack**: Overview of the stack and its benefits.
+* **REST API Structure**: Planning endpoints for user authentication and product management.
+* **Database Schema Basics**: Understanding MongoDB schema design.
+* **Authentication Role**: Importance of secure login and registration.
+* **Project Vision**: Discussing key features and goals.
+* **Live Demo**: Showcasing the application's functionality.
 
 ## Milestone 2: Project Setup and Login Page
-
-In this milestone, we achieved the following:
-
-1. *Project Folder Structure*:
-   - Organized project files into separate frontend and backend directories for better maintainability.
-
-2. *React Frontend Setup*:
-   - Initialized a React application for building the user interface.
-
-3. *Node.js Backend Setup*:
-   - Set up a simple Node.js server to prepare for API integration in future milestones.
-
-4. *Tailwind CSS Configuration*:
-   - Integrated and configured Tailwind CSS for modern, responsive, and utility-based styling.
-
-5. *Login Page Development*:
-   - Designed and implemented the first user interface of the application, focusing on functionality and styling.
-   - The login page includes a responsive layout with Tailwind CSS and essential input fields for email and password.
-
-6. *GitHub Repository Updates*:
-   - Ensured the repository includes:
-     - Separate folders for frontend and backend.
-     - The functional Login Page in the frontend directory.
-
----
+* **Folder Structure**: Organized frontend and backend directories.
+* **React Setup**: Initialized the React application.
+* **Node.js Setup**: Configured a simple Node.js server.
+* **Tailwind CSS**: Integrated for responsive styling.
+* **Login Page**: Developed a responsive login interface.
+* **GitHub Updates**: Committed changes to the repository.
 
 ## Milestone 3: Project Setup for Backend
+* **Backend Structure**: Organized routes, controllers, models, and middleware.
+* **Server Setup**: Configured Node.js server with Express.
+* **Database Connection**: Integrated MongoDB for data storage.
+* **Error Handling**: Implemented basic error handling.
+* **GitHub Updates**: Updated repository with backend structure.
 
-In this milestone, we focused on setting up the backend of the application:
+### Project Structure:
+project-root/
+├── backend/
+│   ├── controllers/    # Contains route handling logic
+│   ├── database/       # Stores database configuration
+│   ├── models/         # Defines MongoDB schemas using Mongoose
+│   ├── routes/         # Defines API routes
+│   └── index..js       # Main server file
+└── frontend/           # Frontend-related code
 
-1. *Backend Folder Structure*:
-   - Created a structured hierarchy for organizing routes, controllers, models, and middleware.
-
-2. *Server Setup*:
-   - Initialized and configured a Node.js server using Express to handle API requests.
-   - Configured the server to listen on a designated port.
-
-3. *Database Connection*:
-   - Integrated MongoDB for efficient data storage and confirmed the connection between the server and MongoDB.
-
-4. *Error Handling*:
-   - Implemented basic error handling to provide clear error messages for better debugging and user feedback.
-
-5. *GitHub Repository Updates*:
-   - Updated the repository with the new backend structure and ensured all changes were committed.
 
 ---
 
 ## Milestone 4: User Model and File Uploads
-
-In this milestone, we created the necessary components for user management:
-
-1. *User Model*:
-   - Designed a User Model to define how user data (like name, email, and password) is stored in the database using MongoDB schemas.
-
-2. *User Controller*:
-   - Created a User Controller to manage user data interactions, such as adding new users and retrieving user information.
-
-3. *File Uploads with Multer*:
-   - Enabled and configured Multer to allow the application to accept and store files uploaded by users, such as profile pictures.
-
-4. *GitHub Repository Updates*:
-   - Updated the repository with the new User Model and Controller, along with Multer configuration.
-
----
+* **User Model**: Designed a schema for user data.
+* **User Controller**: Managed user data interactions.
+* **File Uploads**: Configured Multer for file uploads.
+* **GitHub Updates**: Committed changes for user model and file uploads.
 
 ## Milestone 5: Sign-Up Page and Form Validation
-
-In this milestone, we focused on the frontend user registration process:
-
-1. *Sign-Up Page Development*:
-   - Built a user-friendly Sign-Up page where users can enter their details (name, email, password) to create an account.
-
-2. *Form Validation*:
-   - Implemented form validation to ensure user inputs are correct and in the right format, preventing errors before submission.
-
-3. *GitHub Repository Updates*:
-   - Updated the repository with the new Sign-Up page and validation logic.
-
----
+* **Sign-Up Page**: Developed a user-friendly registration page.
+* **Form Validation**: Implemented validation for user inputs.
+* **GitHub Updates**: Updated repository with the sign-up page.
 
 ## Milestone 6: Password Encryption and User Data Storage
+* **Password Encryption**: Used bcrypt to hash passwords.
+* **User Data Storage**: Saved user data securely in the database.
+* **GitHub Updates**: Committed changes for password encryption.
 
-In this milestone, we enhanced security for user data:
-
-1. *Password Encryption*:
-   - Used bcrypt to hash user passwords during signup, ensuring that only encrypted passwords are stored in the database.
-
-2. *Complete User Data Storage*:
-   - Saved all user data (e.g., name, email) in the database while ensuring that passwords remain encrypted.
-
-3. *GitHub Repository Updates*:
-   - Updated the repository with the password encryption logic and complete user data storage implementation.
-
----
 ## Milestone 7: User Login Endpoint and Credential Validation
+* **Login Endpoint**: Created a backend endpoint for user login.
+* **User Data Retrieval**: Retrieved user records based on credentials.
+* **Password Validation**: Compared hashed passwords securely.
+* **Authentication Response**: Provided feedback based on login success.
+* **Security Measures**: Implemented protections against common threats.
+* **Testing**: Verified login functionality.
+* **GitHub Updates**: Updated repository with login endpoint.
 
-In this milestone, we focused on implementing the user login functionality, ensuring secure authentication through credential validation:
+## Milestone 8: Card Component Creation and Homepage Layout
+* **Card Component**: Developed a reusable product card component.
+* **Dynamic Rendering**: Implemented mapping for product display.
+* **Homepage Layout**: Designed a responsive grid layout.
+* **User Experience**: Enhanced browsing and interaction.
+* **Testing**: Verified card rendering and layout consistency.
+* **GitHub Updates**: Committed changes for card component and layout.
 
-1. *Login Endpoint Creation*:
+## Milestone 9: Product Form Creation and Image Uploads
+* **Product Form**: Designed a form for product details.
+* **Multiple Image Uploads**: Enabled users to upload multiple images.
+* **Form Validation**: Added validation for product inputs.
+* **Admin Access**: Discussed restricting uploads to admins.
+* **Testing**: Verified form functionality and image uploads.
+* **GitHub Updates**: Updated repository with product form.
 
-Developed a backend endpoint to accept user credentials (email/username and password).
-Implemented a route that handles POST requests for user login.
+### Project Structure:
 
-2. *User Data Retrieval*:
+vite-project/
+├── node_modules/           # Dependencies
+├── public/                 # Public assets
+│   ├── favicon.ico
+│   └── index.html          # Main HTML file
+├── src/                    # Main source code
+│   ├── assets/             # Static assets like images, fonts, etc.
+│   ├── components/         # Reusable UI components
+│   │   ├── AddProduct.jsx
+│   │   ├── Footer.jsx
+│   │   ├── GoogleAuth.jsx
+│   │   ├── Header.jsx
+│   │   ├── HeroSection.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── Login.jsx
+│   │   ├── ProductCard.jsx
+│   │   ├── ProfilePage.jsx
+│   │   ├── Signup.jsx
+│   │   └── ...
+│   ├── styles/             # CSS or Tailwind styles
+│   │   └── ...
+│   ├── App.jsx             # Root component
+│   ├── main.jsx            # React entry point
+│   └── index.css           # Global CSS file
+├── .gitignore              # Git ignore file
+├── eslint.config.js        # ESLint configuration
+├── package-lock.json       # Dependency lock file
+├── package.json            # Project dependencies and scripts
+├── postcss.config.js       # PostCSS configuration
+├── tailwind.config.js      # TailwindCSS configuration
+└── vite.config.js          # Vite configuration
 
-Retrieved user records from the database based on the provided email/username.
-Implemented error handling to return a clear message if the user does not exist.
-
-3. *Password Validation*:
-
-Utilized bcrypt to hash the entered password and compare it with the stored hashed password.
-Ensured that the comparison process is secure and efficient, allowing for quick authentication.
-
-4. *Authentication Response*:
-
-Provided appropriate responses based on the authentication outcome:
-If the credentials are valid, the user is authenticated, and a success message is returned.
-If the credentials are invalid, an error message is sent back to the user.
-
-5. *Security Considerations*:
-
-Emphasized the importance of password hashing as a one-way process, ensuring that passwords are never decrypted.
-Implemented measures to protect against common security threats, such as SQL injection and brute force attacks.
-
-6. *Testing the Login Functionality*:
-
-Conducted thorough testing of the login endpoint to ensure it works as expected under various scenarios.
-Verified that the system correctly handles both successful and failed login attempts.
-
-7. *GitHub Repository Updates*:
-
-Committed and pushed the changes to the repository, including the new login endpoint and validation logic.
-Updated the README to reflect the progress made in this milestone.
-
- ----
-# Milestone 8: Card Component Creation and Homepage Layout
-
-In this milestone, we focused on enhancing the user interface by creating a reusable card component to showcase products effectively:
-
-1. *Card Component Development*:
-
-Designed a reusable card component that accepts product details as props, including product name, image, and price.
-Ensured the card component is visually appealing and maintains a consistent layout across different products.
-
-2. *Dynamic Rendering of Products*:
-
-Implemented array mapping to dynamically render a card for each product in the product list.
-Passed unique product information to each card, allowing for a personalized display of product details.
-
-3. *Homepage Layout Design*:
-
-Set up a grid layout using CSS Grid or Flexbox to organize multiple product cards neatly on the homepage.
-Ensured that the layout is responsive and adapts well to different screen sizes, enhancing the user experience.
-
-4. *Improved User Experience*:
-
-Focused on creating an organized and structured homepage that allows users to easily browse and interact with products.
-Ensured that the card component design contributes to a clean and visually appealing interface.
-
-5. *Testing and Validation*:
-
-Conducted testing to ensure that the card component renders correctly for various products and that the layout remains consistent.
-Verified that all product details are displayed accurately and that the user interface is intuitive.
-
-6. *GitHub Repository Updates*:
-
-Committed and pushed the changes to the repository, including the new card component and homepage layout.
-Updated the README file to summarize the progress made in this milestone.
-
-# Milestone 9: Product Form Creation and Image Uploads
-
-* **Product Form:** Designed a form to capture product details such as name, description, price, and category.
-* **Multiple Image Uploads:** Enabled users to upload multiple images for each product.
-* **Form Validation:** Implemented validation to ensure all required fields are filled and images are uploaded correctly.
-* **Admin Access:** Discussed restricting product uploads to admin users or shop profile users.
-* **Testing:** Verified that the form correctly submits product details and handles image uploads without issues.
-* **GitHub Updates:** Committed and pushed changes to the repository, including the product form implementation.
-
-------
-
-# Milestone 10: Product Schema and API Endpoint Creation
-
-## 1. Product Schema
-* Defined the product data structure using Mongoose.
-* **Details**: Created a schema to store product information such as name, price, description, and category.
-
-## 2. API Endpoint
-* Created a POST endpoint to handle product data submission.
-* **Details**: The endpoint allows clients to send product data to the server for storage in the database.
-
-## 3. Data Validation
-* Ensured that only valid data is saved in the database.
-* **Details**: Implemented validation checks to verify data integrity before saving.
-
-## 4. Testing
-* Verified the functionality of the POST endpoint using Postman.
-* **Details**: Tested various scenarios to ensure the endpoint works as expected.
-
-## 5. Future Enhancements
-* Discussed potential improvements, such as adding admin restrictions and user roles.
-* **Details**: Explored ways to restrict access to certain endpoints based on user roles (e.g., admin vs. regular user).
-
-## 6. GitHub Updates
-* Committed all changes related to the product schema and endpoint to GitHub.
-* **Details**: Updated the repository with the latest code and documentation.
 
 ---
 
-## Why This Approach Works
+## Milestone 10: Product Schema and API Endpoint Creation
+* **Product Schema**: Defined product data structure with Mongoose.
+* **API Endpoint**: Created a POST endpoint for product data.
+* **Data Validation**: Ensured valid data is saved in the database.
+* **Testing**: Verified endpoint functionality with Postman.
+* **Future Enhancements**: Discussed admin restrictions and user roles.
+* **GitHub Updates**: Committed changes for product schema and endpoint.
 
-### Clarity and Readability
-* The milestones are clearly defined and written in simple language for easy understanding.
+## Milestone 11: Fetching and Displaying Products
+* **Backend API**: Created an endpoint to send all product data from MongoDB.
+* **Frontend Data Fetching**: Implemented a function to retrieve product data.
+* **Dynamic Display**: Passed fetched data to the `ProductCard` component.
+* **Component Reusability**: Utilized `ProductCard` to display multiple products efficiently.
+* **Understanding Data Flow**: API integration for seamless communication.
+* **GitHub Updates**: Committed changes for API integration.
 
-### Organization and Structure
-* The use of headings and bullet points ensures a logical flow of information.
+### Project Structure:
 
-### Future-Proofing
-* Discussing future enhancements ensures scalability and adaptability of the project.
+vite-project/
+├── node_modules/           # Dependencies
+├── public/                 # Public assets
+│   ├── favicon.ico
+│   └── index.html          # Main HTML file
+├── src/                    # Main source code
+│   ├── assets/             # Static assets like images, fonts, etc.
+│   ├── components/         # Reusable UI components
+│   │   ├── AddProduct.jsx
+│   │   ├── Footer.jsx
+│   │   ├── GoogleAuth.jsx
+│   │   ├── Header.jsx
+│   │   ├── HeroSection.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── Login.jsx
+│   │   ├── ProductCard.jsx
+│   │   ├── ProfilePage.jsx
+│   │   ├── Signup.jsx
+│   │   └── ...
+│   ├── styles/             # CSS or Tailwind styles
+│   │   └── ...
+│   ├── App.jsx             # Root component
+│   ├── main.jsx            # React entry point
+│   └── index.css           # Global CSS file
+├── .gitignore              # Git ignore file
+├── eslint.config.js        # ESLint configuration
+├── package-lock.json       # Dependency lock file
+├── package.json            # Project dependencies and scripts
+├── postcss.config.js       # PostCSS configuration
+├── tailwind.config.js      # TailwindCSS configuration
+└── vite.config.js          # Vite configuration
+
+backend/
+├── node_modules/           # Dependencies
+├── controllers/            # Controller files
+│   ├── product.controller.js
+│   ├── user.controller.js
+│   └── ...
+├── models/                 # Mongoose models
+│   ├── product.model.js
+│   ├── user.model.js
+│   └── ...
+├── routes/                 # Route files
+│   ├── product.routes.js
+│   ├── user.routes.js
+│   └── ...
+├── .gitignore              # Git ignore file
+├── package-lock.json       # Dependency lock file
+├── package.json            # Project dependencies and scripts
+├── server.js               # Entry point for the backend server
+└── config/                 # Configuration files
+    ├── db.js               # Database connection configuration
+    └── ...
+
+
+---
+
+## Milestone 12: My Products Page with User-Specific Product Display
+* **Endpoint Creation**: Developed a GET endpoint to fetch all products associated with the logged-in user.
+* **Frontend Integration**: Retrieved user-specific product data from the backend.
+* **Dynamic Display**: Utilized `ProductCard` for personalized product display.
+* **Data Filtering**: Implemented backend filtering for user-specific products.
+* **Testing**: Verified the functionality using browser tools and Postman.
+* **Future Enhancements**: Considered options for editing or deleting products.
+* **GitHub Updates**: Committed changes related to the user-specific product display.
+
+---

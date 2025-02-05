@@ -2,11 +2,12 @@ const express = require('express');
 const connectDB = require('./database/db')
 const userRouter = require("./routes/user.routes")
 const productRoutes = require('./routes/product.routes');
+const cors = require("cors")
 const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT 
 
-app.get('/',(req,res)=>{
+app.get('/',cors(),(req,res)=>{
     try{
         res.send("Server is ready")
         console.log("My first test API is working")
@@ -17,6 +18,8 @@ app.get('/',(req,res)=>{
 });
 
 app.use(express.json());
+app.use(express.urlencoded({extended:true}))
+app.use(cors())
 
 app.use("/api",userRouter);
 app.use('/api/products', productRoutes);

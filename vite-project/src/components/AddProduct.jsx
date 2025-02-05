@@ -1,11 +1,73 @@
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function AddProduct() {
+  const navigate = useNavigate();
+  const [productName, setProductName] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  const [productType, setProductType] = useState('');
+  const [price, setPrice] = useState('');
   const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
+  const [error, setError] = useState('');
 
   const handleImageChange = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setImageUrl('');
+    }
+  };
+
+  const handleImageUrlChange = (e) => {
+    setImageUrl(e.target.value);
+    setImage(e.target.value);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setImageUrl('');
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!productName || !productDescription || !productType || !price || (!image && !imageUrl)) {
+      setError('All fields are required');
+      return;
+    }
+    setError('');
+
+    try {
+      const response = await axios.post('http://localhost:5050/api/products/add', {
+        productName,
+        productDescription,
+        productType,
+        price,
+        imageUrl: imageUrl || image
+      });
+      console.log('Product added:', response.data);
+      // Reset form fields
+      setProductName('');
+      setProductDescription('');
+      setProductType('');
+      setPrice('');
+      setImage(null);
+      setImageUrl('');
+      // Navigate to /home
+      navigate('/home');
+    } catch (error) {
+      console.error('Error adding product:', error);
+      setError('An error occurred while adding the product');
+    }
   };
 
   return (
@@ -16,7 +78,7 @@ export default function AddProduct() {
           <p className="text-center text-gray-400 mt-2">Fill in the details below to add a new product</p>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -24,8 +86,11 @@ export default function AddProduct() {
               </label>
               <input
                 type="text"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
                 placeholder="Enter product name"
+                required
               />
             </div>
 
@@ -34,9 +99,12 @@ export default function AddProduct() {
                 Product Description
               </label>
               <textarea
+                value={productDescription}
+                onChange={(e) => setProductDescription(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
                 placeholder="Enter product description"
                 rows="4"
+                required
               ></textarea>
             </div>
 
@@ -45,7 +113,10 @@ export default function AddProduct() {
                 Product Category
               </label>
               <select
+                value={productType}
+                onChange={(e) => setProductType(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
+                required
               >
                 <option value="">Select category</option>
                 <option value="clothing">Clothing</option>
@@ -55,58 +126,58 @@ export default function AddProduct() {
                 <option value="books">Books</option>
               </select>
             </div>
-            <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-300 mb-2">Price</label>
-            <input
-              type="number"
-              className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
-              placeholder="Enter product price"
-            />
-          </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                Product Image
+                Price
               </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-700 border-dashed rounded-lg bg-gray-800">
-                <div className="space-y-2 text-center">
-                  <div className="text-gray-300">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="relative cursor-pointer"
-                    />
-                  </div>
-                  <p className="text-xs text-gray-400">PNG, JPG, GIF up to 10MB</p>
-                </div>
-              </div>
-              {image && (
-                <div className="mt-4">
-                  <img
-                    src={image}
-                    alt="Product preview"
-                    className="w-full h-64 object-cover rounded-lg border border-gray-700"
-                  />
-                </div>
-              )}
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
+                placeholder="Enter product price"
+                required
+              />
             </div>
 
-            <div className="flex gap-4">
-              <button
-                type="button"
-                className="w-full py-3 px-4 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200 border border-gray-700"
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Upload Image
+              </label>
+              <div
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                className="w-full px-4 py-6 rounded-lg bg-gray-800 border border-dashed border-gray-700 text-gray-100 text-center cursor-pointer"
               >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 font-medium"
-              >
-                Add Product
-              </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                  id="fileInput"
+                />
+                <label htmlFor="fileInput" className="cursor-pointer">
+                  Drag & Drop or Click to Upload
+                </label>
+              </div>
+              <input
+                type="text"
+                value={imageUrl}
+                onChange={handleImageUrlChange}
+                className="w-full mt-4 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200"
+                placeholder="Or paste image URL"
+              />
+              {image && <img src={image} alt="Product" className="mt-4 w-full h-80 object-cover rounded-lg" />}
             </div>
           </div>
+          {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+          <button
+            type="submit"
+            className="w-full py-3 px-4 mt-6 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200"
+          >
+            Add Product
+          </button>
         </form>
       </div>
     </div>

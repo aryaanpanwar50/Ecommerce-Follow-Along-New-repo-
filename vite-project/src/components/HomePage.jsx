@@ -1,6 +1,9 @@
-import React from "react";
+
 import ProductCard from "./ProductCard";
-const products = [
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const defaultProducts = [
     {
       id: 1,
       name: "Classic Polo Shirt",
@@ -11,6 +14,7 @@ const products = [
     {
       id: 2,
       name: "Premium Cotton Polo",
+      category:"Cloth",
       price: 59.99,
       image:
         "https://static.zara.net/assets/public/949b/f399/efc34e29afd7/25cbab09140f/04092400401-e1/04092400401-e1.jpg?ts=1735807958090&w=563",
@@ -34,11 +38,11 @@ const products = [
       name: "Essential Polo",
       price: 42.99,
       image:
-        "https://static.zara.net/assets/public/17d4/99d0/1770447a9ce4/259f915b1894/04092400526-e1/04092400526-e1.jpg?ts=1735901731320&w=563",
+        "https://static.zara.net/assets/pubQlic/17d4/99d0/1770447a9ce4/259f915b1894/04092400526-e1/04092400526-e1.jpg?ts=1735901731320&w=563",
     },
     {
       id: 6,
-      name: "Modern Fit Polo",
+      name: "  FiPolot ",
       price: 54.99,
       image:
         "https://static.zara.net/assets/public/ecdc/cf40/e0da4af2af07/654179fb2d84/00526460305-e1/00526460305-e1.jpg?ts=1735307340273&w=563",
@@ -46,9 +50,28 @@ const products = [
   ];
 
 const Homepage = () => {
+  
+  const [products, setProducts] = useState(defaultProducts);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5050/api/products/get');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 ">
       {products.map((product) => (
+        <ProductCard key={product.id} {...product} />
+      ))}
+      {defaultProducts.map((product) => (
         <ProductCard key={product.id} {...product} />
       ))}
       
