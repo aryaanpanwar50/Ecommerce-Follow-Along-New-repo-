@@ -196,7 +196,7 @@ backend/
 ├── server.js               # Entry point for the backend server
 └── config/                 # Configuration files
     ├── db.js               # Database connection configuration
-    └── ...
+    └── ....
 
 
 ---
