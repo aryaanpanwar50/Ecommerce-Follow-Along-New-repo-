@@ -392,3 +392,69 @@ backend/
 
 -------------
 
+## 📍 Milestone 14: Product Delete Endpoint  
+- **DELETE Endpoint**: Created an API route to remove a product from **MongoDB** by its ID.  
+- **Frontend Integration**: Added a **"Delete" button** to product cards, triggering product removal.  
+- **Confirmation Prompt**: Implemented a **confirmation dialog** to prevent accidental deletions.  
+- **Data Removal**: Ensured product deletion updates both **frontend and database**.  
+- **Testing**: Verified API response in **Postman** and tested the frontend delete flow.  
+- **GitHub Updates**: Committed changes for **backend deletion logic and UI updates**.  
+
+### Project Structure:
+
+```
+vite-project/
+├── node_modules/           # Dependencies
+├── public/                 # Public assets
+│   ├── favicon.ico
+│   └── index.html          # Main HTML file
+├── src/                    # Main source code
+│   ├── assets/             # Static assets like images, fonts, etc.
+│   ├── components/         # Reusable UI components
+│   │   ├── AddProduct.jsx
+│   │   ├── Footer.jsx
+│   │   ├── GoogleAuth.jsx
+│   │   ├── Header.jsx
+│   │   ├── HeroSection.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── Login.jsx
+│   │   ├── ProductCard.jsx
+│   │   ├── ProfilePage.jsx
+│   │   ├── Signup.jsx
+│   │   └── …
+│   ├── styles/             # CSS or Tailwind styles
+│   │   └── …
+│   ├── App.jsx             # Root component
+│   ├── main.jsx            # React entry point
+│   └── index.css           # Global CSS file
+├── .gitignore              # Git ignore file
+├── eslint.config.js        # ESLint configuration
+├── package-lock.json       # Dependency lock file
+├── package.json            # Project dependencies and scripts
+├── postcss.config.js       # PostCSS configuration
+├── tailwind.config.js      # TailwindCSS configuration
+└── vite.config.js          # Vite configuration
+
+backend/
+├── node_modules/           # Dependencies
+├── controllers/            # Controller files
+│   ├── product.controller.js
+│   ├── user.controller.js
+│   └── …
+├── models/                 # Mongoose models
+│   ├── product.model.js
+│   ├── user.model.js
+│   └── …
+├── routes/                 # Route files
+│   ├── product.routes.js
+│   ├── user.routes.js
+│   └── …
+├── .gitignore              # Git ignore file
+├── package-lock.json       # Dependency lock file
+├── package.json            # Project dependencies and scripts
+├── server.js               # Entry point for the backend server
+└── config/                 # Configuration files
+    ├── db.js               # Database connection configuration
+    └── … 
+
+```
