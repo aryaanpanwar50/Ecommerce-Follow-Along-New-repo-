@@ -1,5 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductCard = (props) => {
   // destructuring both id and _id from props in case the backend sends _id
@@ -10,6 +13,41 @@ const ProductCard = (props) => {
   const handleEdit = () => {
     // Navigate to the update page using the product's ObjectId
     navigate(`/update/${productId}`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5050/api/products/delete/${productId}`);
+      
+      await new Promise((resolve) => {
+        toast.success('Product deleted successfully', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          onClose: resolve
+        });
+      });
+
+      // Reload the page after the toast is closed
+      window.location.reload();
+    } catch (error) {
+      toast.error("Failed to delete the product", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      console.error("Failed to delete the product:", error);
+    }
   };
 
   return (
@@ -28,6 +66,13 @@ const ProductCard = (props) => {
       >
         Edit
       </button>
+      <button
+        onClick={handleDelete}
+        className="bg-red-600 hover:bg-red-700 focus:bg-red-800 text-white px-4 py-2 rounded ml-2"
+      >
+        Delete
+      </button>
+      <ToastContainer />
     </div>
   );
 };

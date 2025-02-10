@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddProduct() {
   const navigate = useNavigate();
@@ -62,11 +64,36 @@ export default function AddProduct() {
       setPrice('');
       setImage(null);
       setImageUrl('');
-      // Navigate to /home
+
+      await new Promise((resolve) => {
+        toast.success('Product added successfully', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          onClose: resolve
+        });
+      });
+
+      // Navigate to /home after the toast is closed
       navigate('/home');
     } catch (error) {
       console.error('Error adding product:', error);
       setError('An error occurred while adding the product');
+      toast.error('Failed to add the product', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -180,6 +207,7 @@ export default function AddProduct() {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
