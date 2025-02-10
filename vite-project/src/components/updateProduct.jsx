@@ -1,4 +1,4 @@
-// filepath: /c:/Users/aryaa/OneDrive/Documents/New folder/vite-project/src/components/updateProduct.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';

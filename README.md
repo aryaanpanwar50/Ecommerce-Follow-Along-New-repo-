@@ -212,3 +212,30 @@ backend/
 * **GitHub Updates**: Committed changes related to the user-specific product display.
 
 ---
+
+## Milestone 13: Product Update Endpoint and Form Auto-fill
+
+### 🔄 Update Endpoint
+- Developed a `PUT` endpoint to receive updated product data and modify the corresponding document in MongoDB.
+
+### 🖥️ Frontend Integration
+- Added an **"Edit"** button to each product card.
+- Clicking the button pre-fills the product form with existing data for seamless editing.
+
+### 📝 Form Auto-fill
+- Implemented functionality to populate the product form with the selected product's details.
+- Enables easy modification without manually re-entering information.
+
+### 💾 Data Persistence
+- Ensured that updated product data is correctly saved to the MongoDB database.
+
+### ✅ Testing
+- Verified the update functionality using **Postman** and tested the edit flow in the application.
+
+### 📌 GitHub Updates
+- Committed all changes related to the update endpoint and form auto-fill to the repository.
+- Updated the **README.md** to document the new feature and usage instructions.
+
+
+-------------
+
