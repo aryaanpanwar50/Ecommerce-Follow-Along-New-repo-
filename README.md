@@ -36,6 +36,7 @@ This project is a full-fledged E-Commerce Application built using the **MERN sta
 * **GitHub Updates**: Updated repository with backend structure.
 
 ### Project Structure:
+```
 project-root/
 ├── backend/
 │   ├── controllers/    # Contains route handling logic
@@ -44,7 +45,7 @@ project-root/
 │   ├── routes/         # Defines API routes
 │   └── index..js       # Main server file
 └── frontend/           # Frontend-related code
-
+```
 
 ---
 
@@ -90,7 +91,7 @@ project-root/
 * **GitHub Updates**: Updated repository with product form.
 
 ### Project Structure:
-
+```
 vite-project/
 ├── node_modules/           # Dependencies
 ├── public/                 # Public assets
@@ -122,7 +123,7 @@ vite-project/
 ├── postcss.config.js       # PostCSS configuration
 ├── tailwind.config.js      # TailwindCSS configuration
 └── vite.config.js          # Vite configuration
-
+```
 
 ---
 
@@ -143,7 +144,7 @@ vite-project/
 * **GitHub Updates**: Committed changes for API integration.
 
 ### Project Structure:
-
+````
 vite-project/
 ├── node_modules/           # Dependencies
 ├── public/                 # Public assets
@@ -197,7 +198,7 @@ backend/
 └── config/                 # Configuration files
     ├── db.js               # Database connection configuration
     └── ....
-
+````
 
 ---
 

@@ -36,4 +36,22 @@ const getProducts = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, getProducts };
+const updateProduct = async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body, 
+      { new: true }
+    );
+    
+    if (!updatedProduct) {
+      return res.status(404).send("Product not found");
+    }
+    
+    res.status(200).send({ data: updatedProduct });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+module.exports = { addProduct, getProducts,updateProduct};
