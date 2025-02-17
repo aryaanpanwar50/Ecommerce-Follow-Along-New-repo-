@@ -458,3 +458,12 @@ backend/
     └── … 
 
 ```
+
+### Milestone 15: Navigation Component :
+
+**Navigation Component**: Created a reusable Nav component with links to "Home," "My Products," "Add Product," and "Cart" pages.
+**Responsive Design**: Made the Nav component responsive to different screen sizes using Tailwind CSS.
+**Page Integration**: Integrated the Nav component into all pages of the application, providing consistent navigation.
+**Smooth Navigation**   : Ensured smooth transitions between pages using React Router.
+**Testing**: Verified the navigation functionality and responsiveness across different devices.
+**GitHub Updates**: Committed all changes related to the Nav component and its integration to the repository.
