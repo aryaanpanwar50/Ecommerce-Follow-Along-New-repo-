@@ -1,5 +1,3 @@
-# Ecommerce-Follow-Along
-
 # 🛒 E-Commerce Application (MERN Stack)
 
 ## 📌 Project Description
@@ -76,7 +74,6 @@ This project is a **full-fledged E-Commerce Application** built using the **MERN
 ### 📌 GitHub Updates
 - Committed **backend structure setup** to the repository.
 
-
 ### Project Structure:
 ```
 project-root/
@@ -85,13 +82,13 @@ project-root/
 │   ├── database/       # Stores database configuration
 │   ├── models/         # Defines MongoDB schemas using Mongoose
 │   ├── routes/         # Defines API routes
-│   └── index..js       # Main server file
+│   └── index.js        # Main server file
 └── frontend/           # Frontend-related code
 ```
 
 ---
 
-## Milestone 4: User Model and File Uploads
+## 📍 Milestone 4: User Model and File Uploads
 
 ### 👤 User Model
 - Designed a **schema** for storing **user data**.
@@ -107,7 +104,7 @@ project-root/
 
 ---
 
-## Milestone 5: Sign-Up Page and Form Validation
+## 📍 Milestone 5: Sign-Up Page and Form Validation
 
 ### 📝 Sign-Up Page
 - Developed a **user-friendly registration page** for new users.
@@ -120,7 +117,7 @@ project-root/
 
 ---
 
-## Milestone 6: Password Encryption and User Data Storage
+## 📍 Milestone 6: Password Encryption and User Data Storage
 
 ### 🔐 Password Encryption
 - Used **bcrypt** to securely **hash user passwords**.
@@ -133,7 +130,7 @@ project-root/
 
 ---
 
-## Milestone 7: User Login Endpoint and Credential Validation
+## 📍 Milestone 7: User Login Endpoint and Credential Validation
 
 ### 🔑 Login Endpoint
 - Created a **backend endpoint** for user authentication.
@@ -158,7 +155,7 @@ project-root/
 
 ---
 
-## Milestone 8: Card Component Creation and Homepage Layout
+## 📍 Milestone 8: Card Component Creation and Homepage Layout
 
 ### 📦 Card Component
 - Developed a **reusable** and **dynamic product card component**.
@@ -180,7 +177,7 @@ project-root/
 
 ---
 
-## Milestone 9: Product Form Creation and Image Uploads
+## 📍 Milestone 9: Product Form Creation and Image Uploads
 
 ### 📝 Product Form
 - Designed a **detailed form** for adding product information.
@@ -199,7 +196,6 @@ project-root/
 
 ### 📌 GitHub Updates
 - Updated repository with **product form and image upload feature**.
-
 
 ### Project Structure:
 ```
@@ -238,7 +234,7 @@ vite-project/
 
 ---
 
-## Milestone 10: Product Schema and API Endpoint Creation
+## 📍 Milestone 10: Product Schema and API Endpoint Creation
 
 ### 🛠️ Product Schema
 - Defined the **product data structure** using **Mongoose**.
@@ -260,7 +256,7 @@ vite-project/
 
 ---
 
-## Milestone 11: Fetching and Displaying Products
+## 📍 Milestone 11: Fetching and Displaying Products
 
 ### 🌐 Backend API
 - Developed a **GET** endpoint to retrieve all product data from **MongoDB**.
@@ -280,9 +276,8 @@ vite-project/
 ### 📌 GitHub Updates
 - Committed all changes related to **API integration** and **product display**.
 
-
 ### Project Structure:
-````
+```
 vite-project/
 ├── node_modules/           # Dependencies
 ├── public/                 # Public assets
@@ -335,12 +330,12 @@ backend/
 ├── server.js               # Entry point for the backend server
 └── config/                 # Configuration files
     ├── db.js               # Database connection configuration
-    └── ....
-````
+    └── ...
+```
 
 ---
 
-## Milestone 12: My Products Page with User-Specific Product Display
+## 📍 Milestone 12: My Products Page with User-Specific Product Display
 
 ### 🌐 Endpoint Creation
 - Developed a `GET` endpoint to fetch all products associated with the logged-in user.
@@ -366,7 +361,7 @@ backend/
 
 ---
 
-## Milestone 13: Product Update Endpoint and Form Auto-fill
+## 📍 Milestone 13: Product Update Endpoint and Form Auto-fill
 
 ### 🔄 Update Endpoint
 - Developed a `PUT` endpoint to receive updated product data and modify the corresponding document in MongoDB.
@@ -389,19 +384,29 @@ backend/
 - Committed all changes related to the update endpoint and form auto-fill to the repository.
 - Updated the **README.md** to document the new feature and usage instructions.
 
+---
 
--------------
+## 📍 Milestone 14: Product Delete Endpoint
 
-## 📍 Milestone 14: Product Delete Endpoint  
-- **DELETE Endpoint**: Created an API route to remove a product from **MongoDB** by its ID.  
-- **Frontend Integration**: Added a **"Delete" button** to product cards, triggering product removal.  
-- **Confirmation Prompt**: Implemented a **confirmation dialog** to prevent accidental deletions.  
-- **Data Removal**: Ensured product deletion updates both **frontend and database**.  
-- **Testing**: Verified API response in **Postman** and tested the frontend delete flow.  
-- **GitHub Updates**: Committed changes for **backend deletion logic and UI updates**.  
+### 🗑️ DELETE Endpoint
+- Created an API route to remove a product from **MongoDB** by its ID.
+
+### 🖥️ Frontend Integration
+- Added a **"Delete" button** to product cards, triggering product removal.
+
+### ⚠️ Confirmation Prompt
+- Implemented a **confirmation dialog** to prevent accidental deletions.
+
+### 🗄️ Data Removal
+- Ensured product deletion updates both **frontend and database**.
+
+### 🛠️ Testing
+- Verified API response in **Postman** and tested the frontend delete flow.
+
+### 📌 GitHub Updates
+- Committed changes for **backend deletion logic and UI updates**.
 
 ### Project Structure:
-
 ```
 vite-project/
 ├── node_modules/           # Dependencies
@@ -421,9 +426,9 @@ vite-project/
 │   │   ├── ProductCard.jsx
 │   │   ├── ProfilePage.jsx
 │   │   ├── Signup.jsx
-│   │   └── …
+│   │   └── ...
 │   ├── styles/             # CSS or Tailwind styles
-│   │   └── …
+│   │   └── ...
 │   ├── App.jsx             # Root component
 │   ├── main.jsx            # React entry point
 │   └── index.css           # Global CSS file
@@ -440,35 +445,141 @@ backend/
 ├── controllers/            # Controller files
 │   ├── product.controller.js
 │   ├── user.controller.js
-│   └── …
+│   └── ...
 ├── models/                 # Mongoose models
 │   ├── product.model.js
 │   ├── user.model.js
-│   └── …
+│   └── ...
 ├── routes/                 # Route files
 │   ├── product.routes.js
 │   ├── user.routes.js
-│   └── …
+│   └── ...
 ├── .gitignore              # Git ignore file
 ├── package-lock.json       # Dependency lock file
 ├── package.json            # Project dependencies and scripts
 ├── server.js               # Entry point for the backend server
 └── config/                 # Configuration files
     ├── db.js               # Database connection configuration
-    └── … 
+    └── ...
+```
+
+---
+
+## 📍 Milestone 15: Navigation Component
+
+### 🧭 Navigation Component
+- Created a reusable Nav component with links to "Home," "My Products," "Add Product," and "Cart" pages.
+
+### 📱 Responsive Design
+- Made the Nav component responsive to different screen sizes using Tailwind CSS.
+
+### 🔗 Page Integration
+- Integrated the Nav component into all pages of the application, providing consistent navigation.
+
+### 🚀 Smooth Navigation
+- Ensured smooth transitions between pages using React Router.
+
+### 🛠️ Testing
+- Verified the navigation functionality and responsiveness across different devices.
+
+### 📌 GitHub Updates
+- Committed all changes related to the Nav component and its integration to the repository.
+
+---
+
+## 📍 Milestone 16: Product Details Page
+
+### 📄 Product Details Page
+- Created a new page to display detailed information about individual products.
+
+### 🔄 Dynamic Data
+- Implemented dynamic rendering of product details based on the selected product.
+
+### 🛒 Quantity and Add to Cart
+- Added quantity selection and "Add to Cart" functionality to the product details page.
+
+### 🛠️ Testing
+- Verified the product details page functionality and data display.
+
+### 📌 GitHub Updates
+- Committed all changes related to the product details page to the repository.
 
 ```
 
-### Milestone 15: Navigation Component :
+project-root/
+├── frontend/ (vite-project)
+│   ├── node_modules/
+│   ├── public/
+│   │   ├── favicon.ico
+│   │   └── index.html
+│   ├── src/
+│   │   ├── assets/
+│   │   │   └── images/
+│   │   ├── components/
+│   │   │   ├── auth/
+│   │   │   │   ├── Login.jsx
+│   │   │   │   ├── Signup.jsx
+│   │   │   │   └── GoogleAuth.jsx
+│   │   │   ├── layout/
+│   │   │   │   ├── Header.jsx
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   └── Navigation.jsx
+│   │   │   ├── products/
+│   │   │   │   ├── ProductCard.jsx
+│   │   │   │   ├── ProductDetails.jsx
+│   │   │   │   ├── AddProduct.jsx
+│   │   │   │   └── UpdateProduct.jsx
+│   │   │   ├── cart/
+│   │   │   │   └── Cart.jsx
+│   │   │   ├── user/
+│   │   │   │   └── ProfilePage.jsx
+│   │   │   ├── common/
+│   │   │   │   └── HeroSection.jsx
+│   │   │   └── pages/
+│   │   │       ├── HomePage.jsx
+│   │   │       └── MyProducts.jsx
+│   │   ├── styles/
+│   │   │   └── index.css
+│   │   ├── utils/
+│   │   │   └── api.js
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── vite.config.js
+│
+├── backend/
+│   ├── node_modules/
+│   ├── config/
+│   │   ├── db.js
+│   │   └── env.js
+│   ├── controllers/
+│   │   ├── auth.controller.js
+│   │   ├── product.controller.js
+│   │   └── user.controller.js
+│   ├── middleware/
+│   │   ├── auth.middleware.js
+│   │   └── upload.middleware.js
+│   ├── models/
+│   │   ├── product.model.js
+│   │   └── user.model.js
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   ├── product.routes.js
+│   │   └── user.routes.js
+│   ├── uploads/
+│   │   └── products/
+│   ├── .env
+│   ├── .gitignore
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js
+│
+├── .gitignore
+└── README.md
 
-**Navigation Component**: Created a reusable Nav component with links to "Home," "My Products," "Add Product," and "Cart" pages.
-
-**Responsive Design**: Made the Nav component responsive to different screen sizes using Tailwind CSS.
-
-**Page Integration**: Integrated the Nav component into all pages of the application, providing consistent navigation.
-
-**Smooth Navigation**   : Ensured smooth transitions between pages using React Router.
-
-**Testing**: Verified the navigation functionality and responsiveness across different devices.
-
-**GitHub Updates**: Committed all changes related to the Nav component and its integration to the repository.
+```
