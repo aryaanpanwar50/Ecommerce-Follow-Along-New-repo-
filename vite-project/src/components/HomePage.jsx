@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const Homepage = () => {
   
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); 
 
   useEffect(() => {
     const fetchProducts = async () => {

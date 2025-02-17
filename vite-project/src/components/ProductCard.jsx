@@ -50,6 +50,30 @@ const ProductCard = (props) => {
     }
   };
 
+  const handleAddToCart = () => {
+    const product = { id: productId,  productName, productDescription, price, image, imageUrl, quantity: 1 };
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingProduct = cart.find(item => item.id === productId);
+    if (existingProduct) {
+      cart = cart.map(item =>
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      cart.push(product);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    toast.success('Product added to cart', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   return (
     <div className="bg-gray-800 p-4 rounded-lg shadow-lg">
       <img
@@ -71,6 +95,12 @@ const ProductCard = (props) => {
         className="bg-red-600 hover:bg-red-700 focus:bg-red-800 text-white px-4 py-2 rounded ml-2"
       >
         Delete
+      </button>
+      <button
+        onClick={handleAddToCart}
+        className="bg-green-600 hover:bg-green-700 focus:bg-green-800 text-white px-4 py-2 rounded ml-2"
+      >
+        Add to Cart
       </button>
       <ToastContainer />
     </div>

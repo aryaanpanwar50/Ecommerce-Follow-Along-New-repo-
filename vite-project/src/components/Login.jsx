@@ -4,7 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import GoogleAuth from './GoogleAuth';
+// import GoogleAuth from './GoogleAuth';
 import image1 from "../assets/image6.webp"
 
 export default function Login() {
@@ -164,7 +164,7 @@ export default function Login() {
           </div>
           
           <div className="flex justify-center space-x-4 mt-4">
-            <GoogleAuth />
+            {/* <GoogleAuth /> */}
           </div>
         </form>
       </div>

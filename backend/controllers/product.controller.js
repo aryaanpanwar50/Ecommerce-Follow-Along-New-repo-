@@ -60,7 +60,7 @@ const deleteProduct = async (req, res) => {
 
     if (!deletedProduct) {
       return res.status(404).send("Product not found");
-    }
+    } 
 
     res.status(200).send({ message: "Product deleted successfully" });
   } catch (error) {

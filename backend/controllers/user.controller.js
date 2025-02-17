@@ -29,23 +29,8 @@ const signup = async (req, res) => {
 
         await newUser.save();
 
-        // Generate JWT token
-        const token = jwt.sign(
-            { userId: newUser._id },
-            process.env.JWT_SECRET,
-            { expiresIn: '24h' }
-        );
-
-        // Send response
-        res.status(201).json({
-            message: "User created successfully",
-            data: {
-                userId: newUser._id,
-                username: newUser.username,
-                email: newUser.email
-            },
-            token
-        });
+       
+    
 
     } catch (error) {
         console.error('Signup error:', error);
