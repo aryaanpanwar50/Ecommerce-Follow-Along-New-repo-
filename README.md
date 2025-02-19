@@ -583,3 +583,39 @@ project-root/
 └── README.md
 
 ```
+
+# 🛒 Milestone 17: Cart Functionality Implementation  
+
+## 🔹 Cart Schema Design  
+- Modified user schema to store cart products with necessary product details and quantities.  
+
+## 🔹 Cart Storage Endpoint  
+- **Created:** POST endpoint to handle product details reception and persistent cart storage in the database.  
+
+## 🔹 Data Validation  
+- Implemented checks for **product availability** and **valid quantities** before cart updates.  
+
+## 🔹 🧪 Testing  
+- Verified **cart item persistence** and **user-specific cart isolation**.  
+
+## 🔹 📂 GitHub Updates  
+- **Committed** schema modifications and endpoint implementation to the repository.  
+
+---
+
+# 🛍️ Milestone 18: Cart Data Retrieval System  
+
+## 🔹 Cart Data Endpoint  
+- **Developed:** GET endpoint to fetch all cart products using the authenticated user's email.  
+
+## 🔹 Product Population  
+- Implemented **product data population** from a separate collection for complete cart information.  
+
+## 🔹 🔒 Security Checks  
+- Added **authentication middleware** to ensure **user-specific cart access**.  
+
+## 🔹 🧪 Testing  
+- Validated **endpoint response structure** and **data accuracy**.  
+
+## 🔹 📂 GitHub Updates  
+- **Pushed** cart retrieval endpoint implementation.  
