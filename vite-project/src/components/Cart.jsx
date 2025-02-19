@@ -1,33 +1,67 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ShoppingCart, Plus, Minus, Trash2 } from 'lucide-react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-
-const Cart = () => {
+const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
+  const { id, _id, name, productName, productDescription, price, image, imageUrl } = props;
+ 
+  // const productId = id || _id; // fallback to _id if id prop is undefined
 
   useEffect(() => {
-    const fetchProducts = async()=>{
-      try{
+    const fetchProducts = async () => {
+      try {
         const response = await axios.get('http://localhost:5050/api/cart/getCart');
-        setCartItems(response.data)
-      }catch(error){
+        setCartItems(response.data);
+      } catch (error) {
         console.error('Error fetching products:', error);
       }
-    }
-    fetchProducts()
+    };
+    fetchProducts();
   }, []);
 
-  const removeFromCart = (productId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== productId);
-    setCartItems(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  const removeFromCart = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:5050/api/cart/deleteCart/${productId}`);
+      
+      await new Promise((resolve) => {
+        toast.success('Product removed from cart successfully', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          onClose: resolve
+        });
+      });
+
+      const updatedCart = cartItems.filter((item) => item._id !== productId);
+      setCartItems(updatedCart);
+    } catch (error) {
+      toast.error("Failed to remove the product from cart", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      console.error("Failed to remove the product from cart:", error);
+     
+    }
   };
 
   const updateQuantity = (productId, change) => {
     const updatedCart = cartItems
       .map((item) => {
-        if (item.id === productId) {
+        if (item._id === productId) {
           const newQuantity = item.quantity + change;
           return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
         }
@@ -35,7 +69,6 @@ const Cart = () => {
       })
       .filter((item) => item.quantity > 0);
     setCartItems(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   const calculateTotal = () => {
@@ -76,7 +109,7 @@ const Cart = () => {
               <div className="space-y-6">
                 {cartItems.map((item) => (
                   <div 
-                    key={item.id} 
+                    key={item._id} 
                     className="group bg-white rounded-xl border border-gray-100 p-4 hover:shadow-lg transition-all duration-300 ease-in-out"
                   >
                     <div className="flex items-center gap-6">
@@ -94,7 +127,7 @@ const Cart = () => {
                             {item.productName}
                           </h3>
                           <button
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(item._id)}
                             className="text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-all duration-200"
                           >
                             <Trash2 className="w-5 h-5" />
@@ -108,7 +141,7 @@ const Cart = () => {
                         <div className="flex items-center mt-4">
                           <div className="inline-flex items-center bg-gray-50 rounded-xl border border-gray-200">
                             <button
-                              onClick={() => updateQuantity(item.id, -1)}
+                              onClick={() => updateQuantity(item._id, -1)}
                               className="p-2 hover:bg-gray-100 rounded-l-xl transition-colors duration-200"
                             >
                               <Minus className="w-4 h-4 text-gray-600" />
@@ -117,7 +150,7 @@ const Cart = () => {
                               {item.quantity}
                             </span>
                             <button
-                              onClick={() => updateQuantity(item.id, 1)}
+                              onClick={() => updateQuantity(item._id, 1)}
                               className="p-2 hover:bg-gray-100 rounded-r-xl transition-colors duration-200"
                             >
                               <Plus className="w-4 h-4 text-gray-600" />
@@ -157,6 +190,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
