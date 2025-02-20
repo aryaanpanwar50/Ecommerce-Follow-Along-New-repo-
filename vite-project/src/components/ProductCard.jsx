@@ -1,26 +1,52 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductCard = (props) => {
   // destructuring both id and _id from props in case the backend sends _id
-  const { id, _id, name, productName, productDescription, price, image, imageUrl } = props;
+  const {
+    id,
+    _id,
+    name,
+    productName,
+    productDescription,
+    price,
+    image,
+    imageUrl,
+  } = props;
   const navigate = useNavigate();
   const productId = id || _id; // fallback to _id if id prop is undefined
-
+  const [isInCart, setIsInCart] = useState(false);
   const handleEdit = () => {
     // Navigate to the update page using the product's ObjectId
     navigate(`/update/${productId}`);
   };
+  useEffect(() => {
+    const checkCartStatus = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5050/api/cart/getCart"
+        );
+        const cartItems = response.data;
+        // Check if this product exists in cart based on productName
+        setIsInCart(cartItems.some((item) => item.productName === productName));
+      } catch (error) {
+        console.error("Error checking cart status:", error);
+      }
+    };
 
+    checkCartStatus();
+  }, [productName]);
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5050/api/products/delete/${productId}`);
-      
+      await axios.delete(
+        `http://localhost:5050/api/products/delete/${productId}`
+      );
+
       await new Promise((resolve) => {
-        toast.success('Product deleted successfully', {
+        toast.success("Product deleted successfully", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -29,7 +55,7 @@ const ProductCard = (props) => {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          onClose: resolve
+          onClose: resolve,
         });
       });
 
@@ -50,18 +76,20 @@ const ProductCard = (props) => {
     }
   };
 
-  const handleAddToCart = async() => {
-    try{
+  const handleAddToCart = async () => {
+    if (isInCart) return;
+    try {
       const cartItem = {
         productName,
         price,
         image,
         imageUrl,
-        quantity: 1
-      }
-      await axios.post(`http://localhost:5050/api/cart/addCart`,cartItem);
+        quantity: 1,
+      };
+      await axios.post(`http://localhost:5050/api/cart/addCart`, cartItem);
+      setIsInCart(true);
 
-      toast.success('Product added to cart', {
+      toast.success("Product added to cart", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -71,19 +99,18 @@ const ProductCard = (props) => {
         progress: undefined,
         theme: "dark",
       });
-
-    }catch(error){
-      console.error('Error adding product to cart:', error);
-    toast.error('Failed to add product to cart', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      toast.error("Failed to add product to cart", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -113,9 +140,14 @@ const ProductCard = (props) => {
           </span>
           <button
             onClick={handleAddToCart}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
+            disabled={isInCart}
+            className={`px-6 py-2 rounded-lg font-medium transition-colors duration-200 ${
+              isInCart
+                ? "bg-gray-600 cursor-not-allowed"
+                : "bg-purple-600 hover:bg-purple-700 text-white"
+            }`}
           >
-            Add to Cart
+            {isInCart ? "Added" : "Add to Cart"}
           </button>
         </div>
         <div className="flex justify-between mt-4">

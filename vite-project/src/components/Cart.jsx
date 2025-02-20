@@ -26,19 +26,19 @@ const Cart = (props) => {
     try {
       await axios.delete(`http://localhost:5050/api/cart/deleteCart/${productId}`);
       
-      await new Promise((resolve) => {
-        toast.success('Product removed from cart successfully', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          onClose: resolve
-        });
-      });
+      // await new Promise((resolve) => {
+      //   toast.success('Product removed from cart successfully', {
+      //     position: "top-right",
+      //     autoClose: 5000,
+      //     hideProgressBar: false,
+      //     closeOnClick: false,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: "dark",
+      //     onClose: resolve
+      //   });
+      // });
 
       const updatedCart = cartItems.filter((item) => item._id !== productId);
       setCartItems(updatedCart);
