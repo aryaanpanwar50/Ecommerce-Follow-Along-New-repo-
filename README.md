@@ -619,3 +619,28 @@ project-root/
 
 ## 🔹 📂 GitHub Updates  
 - **Pushed** cart retrieval endpoint implementation.  
+
+
+# 🛒 Milestone 19: Cart Management Interface
+
+## ✅ Cart Page Implementation
+- 📌 **Created frontend cart page** with dynamic product display using fetched cart data.
+
+## 🔢 Quantity Controls
+- ➕➖ **Added interactive +/- buttons** for real-time quantity adjustment per product.
+
+## 🔄 Quantity Update Endpoints
+- 🏗️ **Built PUT endpoints** for increment/decrement operations with inventory checks.
+
+## 💰 Live Price Calculation
+- 💵 **Implemented frontend total calculation** based on quantity changes.
+
+## 🚀 Sync Optimization
+- ⏳ **Added debouncing** to quantity update API calls for efficiency.
+
+## 🛠️ Testing
+- ✅ **Verified quantity synchronization** between frontend and database.
+
+## 🔄 GitHub Updates
+- 📂 **Committed cart page components** and quantity management endpoints.
+
