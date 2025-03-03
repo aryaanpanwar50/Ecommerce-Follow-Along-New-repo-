@@ -648,3 +648,30 @@ project-root/
 
 ---
 
+# 🚀 Milestone 20: User Profile and Data Management  
+
+## 🖥️ Backend Endpoint for User Data  
+- ✅ Created a backend endpoint to **send all user data via email**.  
+
+## 🎨 Frontend Profile Page  
+- ✅ Developed a **frontend profile page** to display user data.  
+
+## 👤 Profile Information Display  
+- 📸 Displayed **profile photo, name, and email** in one section.  
+- 🏡 Displayed **address information** in another section with an **"Add address"** button.  
+
+## 📍 Address Handling  
+- 🚫 Displayed **"No address found"** if no addresses are available.  
+
+## 🔗 Navigation  
+- 🔄 Implemented navigation to the **address form page** when "Add address" is clicked.  
+
+## 🛠️ Testing  
+- ✅ Verified **the display of user data** and **navigation functionality**.  
+
+## 📌 GitHub Updates  
+- ✅ Committed **backend endpoint** and **frontend profile page components**. 🎉  
+
+---
+
+
