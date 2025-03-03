@@ -24,9 +24,10 @@ export default function Login() {
         password
       });
 
-      console.log('API response:', response.data);
-
-      if (response.data) {
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userData', JSON.stringify(response.data.user));
+        
         await new Promise((resolve) => {
           toast.success('Login Successfully', {
             position: "top-right",

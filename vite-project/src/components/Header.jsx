@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { CircleUserRound } from 'lucide-react';;
 
 const Header = () => {
   return (
@@ -16,8 +17,8 @@ const Header = () => {
           </ul>
         </nav>
         <div className="flex items-center space-x-4">
-          <Link to="/login" className="hover:text-purple-500 flex items-center">
-            <FaUser size={20} className="mr-1" /> Login
+          <Link to="/profile" className="hover:text-purple-500 flex items-center">
+          <CircleUserRound /> Profile 
           </Link>
           <Link to="/cart" className="hover:text-purple-500 flex items-center">
             <FaShoppingCart size={20} className="mr-1" /> Cart

@@ -620,6 +620,8 @@ project-root/
 ## 🔹 📂 GitHub Updates  
 - **Pushed** cart retrieval endpoint implementation.  
 
+---
+
 
 # 🛒 Milestone 19: Cart Management Interface
 
@@ -643,4 +645,6 @@ project-root/
 
 ## 🔄 GitHub Updates
 - 📂 **Committed cart page components** and quantity management endpoints.
+
+---
 

@@ -1,15 +1,16 @@
 
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Login from './components/Login';
-import Signup from './components/Signup'
-import Homepage from './components/HomePage';
+import Login from './Pages/Login';
+import Signup from './Pages/Signup'
+import Homepage from './Pages/HomePage';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import AddProduct from './components/AddProduct';
-import EnterMethod from './components/EnterMethod';
-import EcommerceLanding from './components/LandingPage';
-import UpdatePage from './components/updateProduct';
-import Cart from './components/Cart';
+import AddProduct from './Pages//AddProduct';
+import EnterMethod from './Pages/EnterMethod';
+import EcommerceLanding from './Pages/LandingPage';
+import UpdatePage from './Pages/updateProduct';
+import Cart from './Pages//Cart';
+import ProfileDisplay from './Pages//Profile'
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           } />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/cart" element={<Cart></Cart>}/>
+          <Route path="/profile" element={<ProfileDisplay></ProfileDisplay>}/>
         </Routes>
       </Router>
     </div>

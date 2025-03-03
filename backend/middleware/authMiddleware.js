@@ -1,34 +1,19 @@
-const User = require('../models/user.model');
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const checkUserCredentials = async (req, res, next) => {
+const verifyToken = (req, res, next) => {
     try {
-        const { email, password } = req.body;
-
-        // Validate input
-        if (!email || !password) {
-            return res.status(400).json({ message: "All fields are required" });
+        const token = req.headers.authorization?.split(' ')[1];
+        
+        if (!token) {
+            return res.status(401).json({ message: "Authentication required" });
         }
 
-        // Check if user exists
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ message: "Invalid email or password" });
-        }
-
-        // Check password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: "Invalid email or password" });
-        }
-
-        // Attach user to request object
-        req.user = user;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;  // This will contain userId, email, and username
         next();
     } catch (error) {
-        console.error('Authentication error:', error);
-        res.status(500).json({ message: "Error during authentication", error: error.message });
+        return res.status(401).json({ message: "Invalid or expired token" });
     }
 };
 
-module.exports = checkUserCredentials;
+module.exports = { verifyToken };
