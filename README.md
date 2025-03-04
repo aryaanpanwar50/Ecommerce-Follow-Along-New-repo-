@@ -674,4 +674,45 @@ project-root/
 
 ---
 
+# 🚀 Milestone 21: Address Form Integration
 
+## 🏗️ Address Form Frontend Page  
+- ✅ **Created** a frontend form to input address details.  
+
+## 📋 Address Fields  
+- 🏳️ **Country**  
+- 🏙️ **City**  
+- 🏡 **Address1**  
+- 🏠 **Address2**  
+- 🔢 **Zip Code**  
+- 🏷️ **Address Type**  
+
+## 🛠️ State Management  
+- 🗂️ Implemented state to **store input address data**.  
+
+## 🔄 Navigation Integration  
+- 🔗 Enabled navigation from the **Profile Page** to the **Address Form Page** upon clicking **"Add Address"**.  
+
+## ✅ Testing  
+- 🧪 Verified **form functionality** and **state management**.  
+
+## 🔗 GitHub Updates  
+- 📌 Committed **address form components** and **state management logic**.  
+
+---
+
+# 🚀 Milestone 22: Address Storage Endpoint  
+
+## 🔧 Backend Endpoint for Address Storage  
+- 📡 Developed a **backend endpoint** to store address data in the user profile.  
+
+## 🗄️ Database Integration  
+- 💾 Added **address data** to the `address` array within the **user collection** in the database.  
+
+## ✅ Testing  
+- 🧪 Verified **address storage functionality** and **database updates**.  
+
+## 🔗 GitHub Updates  
+- 📌 Committed **backend endpoint for address storage**.  
+
+---
