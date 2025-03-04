@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Mail, MapPin, Plus, Palette } from 'lucide-react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const themes = {
   emerald: {
@@ -35,6 +36,7 @@ const themes = {
 };
 
 const ProfileDisplay = () => {
+  const navigate = useNavigate();
   const [currentTheme, setCurrentTheme] = useState('emerald');
   const [profile, setProfile] = useState({});
   const [newAddress, setNewAddress] = useState('');
@@ -64,28 +66,8 @@ const ProfileDisplay = () => {
     fetchData();
   }, []); // This will run once when component mounts
 
-  const handleAddAddress = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.put(
-        'http://localhost:5050/api/profile/address',
-        { address: newAddress },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      if (response.data.user) {
-        setProfile(response.data.user); // Update the complete profile with new data
-        setNewAddress(''); // Clear input after successful update
-        toast.success('Address updated successfully');
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error('Error updating address');
-    }
+  const handleAddAddress = () => {
+    navigate('/add-address');
   };
 
   return (
@@ -201,13 +183,7 @@ const ProfileDisplay = () => {
             >
               <p className="text-gray-600">{profile.address || "No address found"}</p>
             </motion.div>
-            <input
-              type="text"
-              value={newAddress}
-              onChange={(e) => setNewAddress(e.target.value)}
-              placeholder="Enter new address"
-              className="mt-4 p-2 border rounded w-full"
-            />
+            
           </div>
         </motion.div>
       </motion.div>

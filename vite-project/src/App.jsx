@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup'
@@ -11,6 +10,7 @@ import EcommerceLanding from './Pages/LandingPage';
 import UpdatePage from './Pages/updateProduct';
 import Cart from './Pages//Cart';
 import ProfileDisplay from './Pages//Profile'
+import AddressForm from './Pages/AddressForm';
 
 export default function App() {
   return (
@@ -33,6 +33,7 @@ export default function App() {
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/cart" element={<Cart></Cart>}/>
           <Route path="/profile" element={<ProfileDisplay></ProfileDisplay>}/>
+          <Route path="/add-address" element={<AddressForm />} />
         </Routes>
       </Router>
     </div>
