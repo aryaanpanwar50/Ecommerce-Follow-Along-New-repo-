@@ -4,11 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-<<<<<<< HEAD
-// import GoogleAuth from './GoogleAuth';
-=======
 
->>>>>>> 337212b (M23)
 import image1 from "../assets/image6.webp"
 
 export default function Login() {

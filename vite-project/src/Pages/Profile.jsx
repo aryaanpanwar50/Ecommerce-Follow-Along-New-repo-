@@ -50,10 +50,7 @@ const ProfileDisplay = () => {
           return;
         }
 
-<<<<<<< HEAD
-        // Fetch complete user profile from API instead of just using localStorage
-=======
->>>>>>> 337212b (M23)
+
         const response = await axios.get('http://localhost:5050/api/profile', {
           headers: {
             Authorization: `Bearer ${token}`
