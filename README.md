@@ -716,3 +716,25 @@ project-root/
 - 📌 Committed **backend endpoint for address storage**.  
 
 ---
+
+# 🎯 Milestone 23: Place Order and Select Address  
+
+## 🛍️ Place Order Button  
+* 🏁 **Added a "Place Order" button** inside the cart page.  
+* 🔀 **Navigates to the select address page** when clicked.  
+
+## 📍 Select Address Page  
+* 🏠 **Created a select address page** displaying all available addresses.  
+* ✅ **Provided an option to select one address** for delivery.  
+
+## 🔗 Backend Endpoint for Addresses  
+* 🌐 **Developed a backend endpoint** to retrieve all addresses associated with the user.  
+* 🔒 **Ensured the endpoint is secure** and only accessible by authenticated users.  
+
+## 🛠️ Testing  
+* ✅ Verified **navigation and address selection functionality**.  
+
+## 🚀 GitHub Updates  
+* 📌 Committed the **place order button, select address page, and backend endpoint**.  
+
+----
