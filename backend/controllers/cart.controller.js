@@ -46,6 +46,29 @@ const deleteCart = async (req, res) => {
   }
 };
 
+const updateCartQuantity = async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    const productId = req.params.id;
 
+    if (quantity < 1) {
+      return res.status(400).send("Quantity must be at least 1");
+    }
 
-module.exports = { addCart, getCart, deleteCart };
+    const updatedProduct = await Cart.findByIdAndUpdate(
+      productId,
+      { quantity },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).send("Product not found");
+    }
+
+    res.status(200).send(updatedProduct);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+module.exports = { addCart, getCart, deleteCart, updateCartQuantity };

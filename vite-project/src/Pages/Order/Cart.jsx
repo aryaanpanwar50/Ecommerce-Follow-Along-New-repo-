@@ -55,17 +55,33 @@ const Cart = (props) => {
     }
   };
 
-  const updateQuantity = (productId, change) => {
-    const updatedCart = cartItems
-      .map((item) => {
-        if (item._id === productId) {
-          const newQuantity = item.quantity + change;
-          return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
-        }
-        return item;
-      })
-      .filter((item) => item.quantity > 0);
-    setCartItems(updatedCart);
+  const updateQuantity = async (productId, change) => {
+    try {
+      const item = cartItems.find(item => item._id === productId);
+      const newQuantity = item.quantity + change;
+      
+      if (newQuantity < 1) {
+        // If quantity becomes 0, remove the item
+        await removeFromCart(productId);
+        return;
+      }
+
+      // Update quantity in the backend
+      const response = await axios.put(
+        `http://localhost:5050/api/cart/updateQuantity/${productId}`,
+        { quantity: newQuantity }
+      );
+
+      // Update local state with the response data
+      setCartItems(cartItems.map(item => 
+        item._id === productId ? response.data : item
+      ));
+
+      
+    } catch (error) {
+      toast.error('Failed to update quantity');
+      console.error('Error updating quantity:', error);
+    }
   };
 
   const calculateTotal = () => {

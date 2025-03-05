@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Plus, Edit, Trash2, Check } from 'lucide-react';
-import { Link } from 'react-router-dom'; // Fix import
+import { Link, useNavigate } from 'react-router-dom'; // Fix import
 import axios from 'axios';
 import { toast } from 'react-hot-toast'; // Add toast for notifications
 
 const SelectAddress = () => {
+  const navigate = useNavigate();
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
 
   // Fetch addresses when component mounts
   useEffect(() => {
@@ -31,6 +33,20 @@ const SelectAddress = () => {
     }
   };
 
+  useEffect(() => {
+    // Fetch cart items when component mounts
+    const fetchCartItems = async () => {
+      try {
+        const response = await axios.get('http://localhost:5050/api/cart/getCart');
+        setCartItems(response.data);
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+        toast.error('Failed to fetch cart items');
+      }
+    };
+    fetchCartItems();
+  }, []);
+
   const handleDeleteAddress = async (addressId) => {
     try {
       await axios.delete(`http://localhost:5050/api/addresses/${addressId}`);
@@ -42,6 +58,18 @@ const SelectAddress = () => {
     } catch (err) {
       toast.error('Failed to delete address');
       console.error('Error deleting address:', err);
+    }
+  };
+
+  const handleConfirmAddress = () => {
+    const selectedAddressData = addresses.find(addr => addr._id === selectedAddress);
+    if (selectedAddressData) {
+      navigate('/checkout-confirmation', {
+        state: {
+          cartItems: cartItems,
+          selectedAddress: selectedAddressData
+        }
+      });
     }
   };
 
@@ -240,8 +268,7 @@ const SelectAddress = () => {
             disabled={!selectedAddress}
             onClick={() => {
               if (selectedAddress) {
-                toast.success('Address selected successfully');
-                // Add your navigation or selection logic here
+                handleConfirmAddress();
               }
             }}
           >

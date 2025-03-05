@@ -14,6 +14,7 @@ import ProfileDisplay from './Pages//Profile'
 import AddressForm from './Pages/Address Form/AddressForm';
 import SelectAddress from './Pages/Order/SelectAddress'
 import AddressFormForCart from './Pages/Address Form/AddressFormForCart';
+import CheckoutConfirmation from './Pages/Order/CheckoutConfirmation';
 
 export default function App() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
 
           <Route path='/add-address-cart' element={<AddressFormForCart/>}></Route>
           <Route path='/choose-address' element={<SelectAddress/>}></Route>
+          <Route path='/checkout-confirmation' element={<CheckoutConfirmation/>}></Route>
 
         </Routes>
       </Router>
