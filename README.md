@@ -738,3 +738,19 @@ project-root/
 * 📌 Committed the **place order button, select address page, and backend endpoint**.  
 
 ----
+
+# 🚀 Milestone 24: Order Confirmation  
+
+## 📦 Order Confirmation Page  
+* 🛍️ Displayed all products being ordered.  
+* 🏠 Showed the selected delivery address.  
+* 💰 Displayed the total value of the cart.  
+
+## 🔘 Place Order Button  
+* ✅ Included a **"Place Order"** button at the bottom of the confirmation page.  
+
+## 🛠️ Testing  
+* 🔍 Verified the order confirmation page functionality.  
+
+## 📂 GitHub Updates  
+* 📌 Committed the order confirmation page and related components.  
