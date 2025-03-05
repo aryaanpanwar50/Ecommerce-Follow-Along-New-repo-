@@ -1,15 +1,24 @@
+<<<<<<< HEAD
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+=======
+import  { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+>>>>>>> 337212b (M23)
 
 const UpdatePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [initialData, setInitialData] = useState({});
+<<<<<<< HEAD
   const [productName, setProductName] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productType, setProductType] = useState('');
@@ -17,6 +26,15 @@ const UpdatePage = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');
+=======
+  const [productName, setProductName] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [productType, setProductType] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState("");
+>>>>>>> 337212b (M23)
   const [loading, setLoading] = useState(true);
 
   // Fetch product details to pre-fill the form
@@ -26,11 +44,19 @@ const UpdatePage = () => {
       .then((response) => {
         const data = response.data;
         setInitialData(data);
+<<<<<<< HEAD
         setProductName(data.productName || '');
         setProductDescription(data.productDescription || '');
         setProductType(data.productType || '');
         setPrice(data.price || '');
         setImageUrl(data.imageUrl || '');
+=======
+        setProductName(data.productName || "");
+        setProductDescription(data.productDescription || "");
+        setProductType(data.productType || "");
+        setPrice(data.price || "");
+        setImageUrl(data.imageUrl || "");
+>>>>>>> 337212b (M23)
         setLoading(false);
       })
       .catch((err) => {
@@ -81,7 +107,11 @@ const UpdatePage = () => {
       .put(`http://localhost:5050/api/products/update/${id}`, updatedProduct)
       .then((response) => {
         new Promise((resolve) => {
+<<<<<<< HEAD
           toast.success('Product updated successfully', {
+=======
+          toast.success("Product updated successfully", {
+>>>>>>> 337212b (M23)
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -90,10 +120,17 @@ const UpdatePage = () => {
             draggable: true,
             progress: undefined,
             theme: "dark",
+<<<<<<< HEAD
             onClose: resolve
           });
         }).then(() => {
           navigate('/home');
+=======
+            onClose: resolve,
+          });
+        }).then(() => {
+          navigate("/home");
+>>>>>>> 337212b (M23)
         });
       })
       .catch((err) => {
@@ -109,7 +146,13 @@ const UpdatePage = () => {
       <ToastContainer />
       <div className="bg-gray-900 p-8 rounded-2xl shadow-xl w-full max-w-4xl border border-gray-800">
         <div className="mb-8">
+<<<<<<< HEAD
           <h2 className="text-3xl font-bold text-gray-100 text-center">Update Product</h2>
+=======
+          <h2 className="text-3xl font-bold text-gray-100 text-center">
+            Update Product
+          </h2>
+>>>>>>> 337212b (M23)
           <p className="text-center text-gray-400 mt-2">
             Update the details below to modify your product
           </p>
@@ -218,4 +261,8 @@ const UpdatePage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default UpdatePage;
+=======
+export default UpdatePage;
+>>>>>>> 337212b (M23)

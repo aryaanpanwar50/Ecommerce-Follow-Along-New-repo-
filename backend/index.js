@@ -3,10 +3,18 @@ const connectDB = require('./database/db')
 const userRouter = require("./routes/user.routes")
 const productRoutes = require('./routes/product.routes');
 const cartRoutes = require('./routes/cart.routes')
+<<<<<<< HEAD
 const cors = require("cors")
 const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT 
+=======
+const addressRoutes = require('./routes/address.routes')
+const cors = require("cors")
+const app = express();
+require('dotenv').config();
+const PORT = process.env.PORT || 5050
+>>>>>>> 337212b (M23)
 
 app.get('/',cors(),(req,res)=>{
     try{
@@ -25,6 +33,11 @@ app.use(cors())
 app.use("/api",userRouter);
 app.use('/api/products', productRoutes);
 app.use('/api/cart',cartRoutes)
+<<<<<<< HEAD
+=======
+app.use('/api/addresses',addressRoutes)
+
+>>>>>>> 337212b (M23)
 
 
 app.listen(PORT,async ()=>{
