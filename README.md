@@ -754,3 +754,50 @@ project-root/
 
 ## 📂 GitHub Updates  
 * 📌 Committed the order confirmation page and related components.  
+
+---
+
+# 🚀 Milestone 25: Place Order Endpoint Implementation  
+
+## 🛒 Backend Endpoint  
+* Created a **POST** endpoint to receive product details, user information, and the selected delivery address.  
+
+## 👤 User Identification  
+* Retrieved the user's **_id** from the database using their email address.  
+
+## 📝 Order Creation  
+* For each product in the cart, a separate order is created and stored in the **MongoDB orders collection**, associated with the user and delivery address.  
+
+## 💾 Data Persistence  
+* Ensured that all order details are correctly saved to the **MongoDB database** using the order schema.  
+
+## 🛠️ Testing  
+* Verified the endpoint functionality using **Postman** to simulate order placement.  
+
+## 🔄 GitHub Updates  
+* ✅ Committed the **place order** endpoint implementation to the repository.  
+
+---
+
+# 📦 Milestone 26: Retrieve User Orders Endpoint  
+
+## 🛒 Backend Endpoint  
+* Created a **GET** endpoint to retrieve all orders associated with a specific user.  
+
+## 👤 User Identification  
+* Received the user's **email** and retrieved their **_id** from the database.  
+
+## 📂 Order Retrieval  
+* Fetched all orders from the **MongoDB orders collection** that match the user's **_id**.  
+
+## 📤 Data Delivery  
+* Sent all the **user's orders** in the response.  
+
+## 🛠️ Testing  
+* Verified the endpoint functionality using **Postman** to retrieve orders for a specific user.  
+
+## 🔄 GitHub Updates  
+* ✅ Committed the **retrieve user orders** endpoint implementation to the repository.  
+
+---
+
