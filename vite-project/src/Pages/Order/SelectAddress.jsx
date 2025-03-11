@@ -13,6 +13,15 @@ const SelectAddress = () => {
   const [error, setError] = useState(null);
   const [cartItems, setCartItems] = useState([]);
 
+  // Add axios configuration with auth token
+  useEffect(() => {
+    // Configure axios to include auth token
+    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }, []);
+
   // Fetch addresses when component mounts
   useEffect(() => {
     fetchAddresses();
@@ -21,12 +30,22 @@ const SelectAddress = () => {
   const fetchAddresses = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5050/api/addresses'); // Fix port number
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No auth token found');
+      }
+
+      const response = await axios.get('http://localhost:5050/api/addresses/my-addresses');
       setAddresses(response.data);
       setError(null);
     } catch (err) {
-      setError('Failed to fetch addresses');
-      toast.error('Failed to fetch addresses');
+      if (err.response?.status === 401) {
+        toast.error('Please login to view addresses');
+        navigate('/login'); // Redirect to login if unauthorized
+      } else {
+        setError('Failed to fetch addresses');
+        toast.error('Failed to fetch addresses');
+      }
       console.error('Error fetching addresses:', err);
     } finally {
       setLoading(false);
@@ -50,13 +69,15 @@ const SelectAddress = () => {
   const handleDeleteAddress = async (addressId) => {
     try {
       await axios.delete(`http://localhost:5050/api/addresses/${addressId}`);
-      setAddresses(addresses.filter(address => address._id !== addressId));
-      if (selectedAddress === addressId) {
-        setSelectedAddress(null);
-      }
+      await fetchAddresses(); // Refresh the list after deletion
       toast.success('Address deleted successfully');
     } catch (err) {
-      toast.error('Failed to delete address');
+      if (err.response?.status === 401) {
+        toast.error('Please login again');
+        navigate('/login');
+      } else {
+        toast.error('Failed to delete address');
+      }
       console.error('Error deleting address:', err);
     }
   };
@@ -64,9 +85,8 @@ const SelectAddress = () => {
   const handleConfirmAddress = () => {
     const selectedAddressData = addresses.find(addr => addr._id === selectedAddress);
     if (selectedAddressData) {
-      navigate('/checkout-confirmation', {
+      navigate('/checkout-page', {
         state: {
-          cartItems: cartItems,
           selectedAddress: selectedAddressData
         }
       });
@@ -266,11 +286,7 @@ const SelectAddress = () => {
                 ? 'bg-pink-600 text-white hover:bg-pink-700 shadow-lg hover:shadow-xl' 
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
             disabled={!selectedAddress}
-            onClick={() => {
-              if (selectedAddress) {
-                handleConfirmAddress();
-              }
-            }}
+            onClick={handleConfirmAddress}
           >
             Confirm Delivery Address
           </motion.button>

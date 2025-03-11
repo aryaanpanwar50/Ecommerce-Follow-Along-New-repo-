@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
+  productId: {
+    type: String,
+    required: true,
+  },
   productName: {
     type: String,
     required: true,
@@ -21,5 +29,8 @@ const cartSchema = new mongoose.Schema({
     default:1,
   },
 });
+
+// Add compound unique index
+cartSchema.index({ userId: 1, productId: 1 }, { unique: true });
 
 module.exports = mongoose.model('Cart', cartSchema);

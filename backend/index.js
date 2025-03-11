@@ -4,6 +4,7 @@ const userRouter = require("./routes/user.routes")
 const productRoutes = require('./routes/product.routes');
 const cartRoutes = require('./routes/cart.routes')
 const addressRoutes = require('./routes/address.routes')
+const orderRoutes = require('./routes/order.routes');
 const cors = require("cors")
 const app = express();
 require('dotenv').config();
@@ -27,10 +28,8 @@ app.use(cors())
 app.use("/api",userRouter);
 app.use('/api/products', productRoutes);
 app.use('/api/cart',cartRoutes)
-
 app.use('/api/addresses',addressRoutes)
-
-
+app.use('/api/orders', orderRoutes);
 
 
 app.listen(PORT,async ()=>{

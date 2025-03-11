@@ -1,31 +1,69 @@
 const Cart = require("../models/cart.model");
+const jwt = require('jsonwebtoken');
+
+const verifyToken = (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return null;
+  }
+};
 
 const addCart = async (req, res) => {
   try {
-    const { productName, price, imageUrl, quantity } = req.body;
+    const token = req.headers.authorization?.split(' ')[1];
+    const decoded = verifyToken(token);
+    
+    if (!decoded) {
+      return res.status(401).send("Unauthorized");
+    }
+
+    const { productId, productName, price, image, imageUrl, quantity } = req.body;
 
     if (!productName || !price || !imageUrl || !quantity) {
       return res.status(400).send("All fields are required");
     }
 
-    const newProduct = new Cart({
+    // Check if product already exists in user's cart
+    const existingItem = await Cart.findOne({ 
+      userId: decoded.userId,
+      productId: productId 
+    });
+
+    if (existingItem) {
+      return res.status(400).json({ message: 'Product already in your cart' });
+    }
+
+    const newCartItem = new Cart({
+      userId: decoded.userId,
+      productId,
       productName,
       price,
+      image,
       imageUrl,
       quantity,
     });
 
-    await newProduct.save();
-
-    res.status(201).send({ data: newProduct });
+    await newCartItem.save();
+    res.status(201).json(newCartItem);
   } catch (error) {
-    res.status(500).send(error.message);
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Product already in your cart' });
+    }
+    res.status(500).json({ message: error.message });
   }
 };
 
 const getCart = async (req, res) => {
   try {
-    const products = await Cart.find();
+    const token = req.headers.authorization?.split(' ')[1];
+    const decoded = verifyToken(token);
+    
+    if (!decoded) {
+      return res.status(401).send("Unauthorized");
+    }
+
+    const products = await Cart.find({ userId: decoded.userId });
     res.status(200).send(products);
   } catch (error) {
     res.status(500).send(error.message);

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -26,19 +26,25 @@ const ProductCard = (props) => {
   useEffect(() => {
     const checkCartStatus = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:5050/api/cart/getCart"
+          "http://localhost:5050/api/cart/getCart",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const cartItems = response.data;
-        // Check if this product exists in cart based on productName
-        setIsInCart(cartItems.some((item) => item.productName === productName));
+        // Check if this product exists in cart based on product ID
+        setIsInCart(cartItems.some((item) => item.productId === productId));
       } catch (error) {
         console.error("Error checking cart status:", error);
       }
     };
 
     checkCartStatus();
-  }, [productName]);
+  }, [productId]);
   const handleDelete = async () => {
     try {
       await axios.delete(
@@ -79,38 +85,36 @@ const ProductCard = (props) => {
   const handleAddToCart = async () => {
     if (isInCart) return;
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Please login to add items to cart");
+        return;
+      }
+
       const cartItem = {
+        productId: productId,
         productName,
         price,
         image,
         imageUrl,
         quantity: 1,
       };
-      await axios.post(`http://localhost:5050/api/cart/addCart`, cartItem);
-      setIsInCart(true);
 
-      toast.success("Product added to cart", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      await axios.post(
+        `http://localhost:5050/api/cart/addCart`,
+        cartItem,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setIsInCart(true);
+      toast.success("Product added to cart",{theme: "dark",});
     } catch (error) {
+      const message = error.response?.data?.message || "Failed to add product to cart";
+      toast.error(message);
       console.error("Error adding product to cart:", error);
-      toast.error("Failed to add product to cart", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
     }
   };
 
@@ -141,13 +145,13 @@ const ProductCard = (props) => {
           <button
             onClick={handleAddToCart}
             disabled={isInCart}
-            className={`px-6 py-2 rounded-lg font-medium transition-colors duration-200 ${
+            className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
               isInCart
-                ? "bg-gray-600 cursor-not-allowed"
+                ? "bg-gray-600 text-gray-300 cursor-not-allowed opacity-70"
                 : "bg-purple-600 hover:bg-purple-700 text-white"
             }`}
           >
-            {isInCart ? "Added" : "Add to Cart"}
+            {isInCart ? "In Cart" : "Add to Cart"}
           </button>
         </div>
         <div className="flex justify-between mt-4">

@@ -4,17 +4,17 @@ import Signup from './Pages/Signup'
 import Homepage from './Pages/HomePage';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import AddProduct from './Pages//AddProduct';
+import AddProduct from './Pages/Products/AddProduct';
 import EnterMethod from './Pages/EnterMethod';
 import EcommerceLanding from './Pages/LandingPage';
-import UpdatePage from './Pages/updateProduct';
+import UpdatePage from './Pages/Products/updateProduct';
 
 import Cart from './Pages/Order/Cart';
 import ProfileDisplay from './Pages//Profile'
 import AddressForm from './Pages/Address Form/AddressForm';
 import SelectAddress from './Pages/Order/SelectAddress'
 import AddressFormForCart from './Pages/Address Form/AddressFormForCart';
-import CheckoutConfirmation from './Pages/Order/CheckoutConfirmation';
+import CheckoutPage from './Pages/Order/CheckoutPage'
 
 export default function App() {
   return (
@@ -41,8 +41,8 @@ export default function App() {
 
           <Route path='/add-address-cart' element={<AddressFormForCart/>}></Route>
           <Route path='/choose-address' element={<SelectAddress/>}></Route>
-          <Route path='/checkout-confirmation' element={<CheckoutConfirmation/>}></Route>
-
+          <Route path="/select-address" element={<SelectAddress />} />
+          <Route path="/checkout-page" element={<CheckoutPage />} />
         </Routes>
       </Router>
     </div>

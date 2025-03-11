@@ -22,12 +22,22 @@ const Cart = (props) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
         const response = await axios.get(
-          "http://localhost:5050/api/cart/getCart"
+          "http://localhost:5050/api/cart/getCart",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
         );
         setCartItems(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+        if (error.response?.status === 401) {
+          // Handle unauthorized access - maybe redirect to login
+          toast.error("Please login to view your cart");
+        }
       }
     };
     fetchProducts();
@@ -35,8 +45,14 @@ const Cart = (props) => {
 
   const removeFromCart = async (productId) => {
     try {
+      const token = localStorage.getItem('token');
       await axios.delete(
-        `http://localhost:5050/api/cart/deleteCart/${productId}`
+        `http://localhost:5050/api/cart/deleteCart/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
       const updatedCart = cartItems.filter((item) => item._id !== productId);
       setCartItems(updatedCart);
@@ -57,30 +73,48 @@ const Cart = (props) => {
 
   const updateQuantity = async (productId, change) => {
     try {
-      const item = cartItems.find(item => item._id === productId);
-      const newQuantity = item.quantity + change;
+      const updatedCart = cartItems.map((item) => {
+        if (item._id === productId) {
+          const newQuantity = item.quantity + change;
+          if (newQuantity > 0) {
+            return { ...item, quantity: newQuantity };
+          }
+        }
+        return item;
+      }).filter((item) => item.quantity > 0);
+
+      // Find the item being updated
+      const updatedItem = updatedCart.find(item => item._id === productId);
       
-      if (newQuantity < 1) {
-        // If quantity becomes 0, remove the item
+      if (updatedItem) {
+        // Make API call to update quantity in backend
+        const token = localStorage.getItem('token');
+        await axios.put(
+          `http://localhost:5050/api/cart/updateQuantity/${productId}`,
+          { quantity: updatedItem.quantity },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+        setCartItems(updatedCart);
+      } else {
+        // If quantity would be 0, remove item from cart
         await removeFromCart(productId);
-        return;
       }
-
-      // Update quantity in the backend
-      const response = await axios.put(
-        `http://localhost:5050/api/cart/updateQuantity/${productId}`,
-        { quantity: newQuantity }
-      );
-
-      // Update local state with the response data
-      setCartItems(cartItems.map(item => 
-        item._id === productId ? response.data : item
-      ));
-
-      
     } catch (error) {
-      toast.error('Failed to update quantity');
-      console.error('Error updating quantity:', error);
+      toast.error("Failed to update quantity", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      console.error("Error updating quantity:", error);
     }
   };
 

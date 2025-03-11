@@ -11,6 +11,33 @@ const addressController = {
     }
   },
 
+  // Get addresses by user ID
+  getAddressesByUserId: async (req, res) => {
+    try {
+      const addresses = await Address.find({ user: req.user.userId });
+      res.json(addresses);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching user addresses' });
+    }
+  },
+
+  // Get specific address of user
+  getUserAddress: async (req, res) => {
+    try {
+      const address = await Address.findOne({ 
+        _id: req.params.addressId, 
+        user: req.user.userId 
+      });
+      
+      if (!address) {
+        return res.status(404).json({ message: 'Address not found' });
+      }
+      res.json(address);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching address' });
+    }
+  },
+
   // Add a new address
   addAddress: async (req, res) => {
     try {
@@ -25,6 +52,7 @@ const addressController = {
       }
 
       const newAddress = new Address({
+        user: req.user.userId,
         type,
         name,
         street,
@@ -51,8 +79,8 @@ const addressController = {
     try {
       const { type, name, street, city, state, zipCode, phone } = req.body;
       
-      const updatedAddress = await Address.findByIdAndUpdate(
-        req.params.id,
+      const updatedAddress = await Address.findOneAndUpdate(
+        { _id: req.params.addressId, user: req.user.userId },
         {
           type,
           name,
@@ -78,7 +106,10 @@ const addressController = {
   // Delete an address
   deleteAddress: async (req, res) => {
     try {
-      const deletedAddress = await Address.findByIdAndDelete(req.params.id);
+      const deletedAddress = await Address.findOneAndDelete({ 
+        _id: req.params.addressId, 
+        user: req.user.userId 
+      });
       
       if (!deletedAddress) {
         return res.status(404).json({ message: 'Address not found' });
