@@ -873,3 +873,20 @@ project-root/
 
 
 ---
+
+# 💰 Milestone 30: Razorpay Payment Integration
+
+## ⚡ Razorpay Integration
+* Implemented **online payment** using the **Razorpay API** with the **client key** created earlier.
+
+## 📦 NPM Package
+* Installed the **Razorpay NPM package** to provide a **component** displaying available **online payment methods**.
+
+## 🔄 Payment Processing
+* Handled the **payment processing logic** when a user chooses to pay via **Razorpay**.
+
+## ✅ Testing
+* Verified that the **Razorpay payment** is processing **correctly**.
+
+## 📝 GitHub Updates
+* **Committed** the **Razorpay payment integration** and related **components** to the repository.
