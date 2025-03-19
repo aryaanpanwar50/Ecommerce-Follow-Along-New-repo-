@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 function MyOrder() {
   const [orderItems, setOrderItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [disabledButtons, setDisabledButtons] = useState(new Set());
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -25,6 +26,32 @@ function MyOrder() {
 
     fetchOrders();
   }, []);
+
+  const handleCancelOrder = async (orderId) => {
+    try {
+      setDisabledButtons(prev => new Set([...prev, orderId]));
+      const token = localStorage.getItem('token');
+      const response = await axios.put(`http://localhost:5050/api/orders/cancel/${orderId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (response.data.success) {
+        setOrderItems(orderItems.map(item => 
+          item._id === orderId ? { ...item, status: 'canceled' } : item
+        ));
+        toast.success('Order canceled successfully');
+      }
+    } catch (error) {
+      console.error('Error canceling order:', error);
+      toast.error('Failed to cancel order');
+      // Remove from disabled buttons if failed
+      setDisabledButtons(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(orderId);
+        return newSet;
+      });
+    }
+  };
 
   return (
     <>
@@ -58,9 +85,25 @@ function MyOrder() {
                         <p className="ml-4">${(item.price * item.quantity).toFixed(2)}</p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500">Quantity: {item.quantity}</p>
+                      <p className="mt-1 text-sm text-gray-500">Status: {item.status}</p>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <p className="text-gray-500">Price: ${item.price.toFixed(2)} each</p>
+                      {item.status === 'canceled' ? (
+                        <span className="text-red-600">Canceled</span>
+                      ) : (
+                        <button
+                          onClick={() => handleCancelOrder(item._id)}
+                          disabled={disabledButtons.has(item._id)}
+                          className={`px-4 py-2 rounded ${
+                            disabledButtons.has(item._id)
+                              ? 'bg-gray-400 cursor-not-allowed text-gray-100'
+                              : 'bg-red-600 hover:bg-red-700 text-white'
+                          }`}
+                        >
+                          {disabledButtons.has(item._id) ? 'Canceling...' : 'Cancel Order'}
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
