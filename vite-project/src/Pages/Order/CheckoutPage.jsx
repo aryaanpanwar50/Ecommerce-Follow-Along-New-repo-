@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { ShoppingBag, MapPin, CreditCard, ChevronRight, ArrowLeft, Truck } from 'lucide-react';
+import { ShoppingBag, MapPin, CreditCard, ChevronRight, ArrowLeft, Truck, Smartphone, QrCode } from 'lucide-react';
+import { loadRazorpayScript, initializeRazorpayPayment } from '../../utils/razorpay';
+import QRCodeModal from '../../components/QRCodeModal';
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -12,6 +14,7 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState('credit-card');
   const [checkoutStep, setCheckoutStep] = useState('review');
+  const [showQRModal, setShowQRModal] = useState(false);
 
   useEffect(() => {
     const fetchCartAndAddress = async () => {
@@ -53,46 +56,112 @@ const CheckoutPage = () => {
     };
   };
 
-  const handlePlaceOrder = async () => {
+  const initiateRazorpayPayment = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const userEmail = localStorage.getItem('userEmail');
+      const token = localStorage.getItem("token");
+      const total = calculateTotals().total;
 
-      const orderData = {
-        products: cartItems.map(item => ({
-          productId: item._id,
-          quantity: item.quantity
-        })),
-        address: {
-          street: selectedAddress.street,
-          city: selectedAddress.city,
-          state: selectedAddress.state,
-          zipCode: selectedAddress.zipCode,
-          country: selectedAddress.country
-        },
-        email: userEmail,
-        paymentMethod: paymentMethod
-      };
-
-      // Show placing order state
       setLoading(true);
-      
-      const response = await axios.post(
-        'http://localhost:5050/api/orders/create',
-        orderData,
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
+      const paymentResponse = await axios.post(
+        'http://localhost:5050/api/payments/checkout', // Updated endpoint
+        { total: Math.round(total * 100) },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      toast.success('Order placed successfully!');
-      // Clear cart and redirect to order confirmation
-      navigate('/order-confirmation', { state: { orderDetails: response.data } });
+      // Check for ad blocker
+      const testScript = document.createElement('script');
+      testScript.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      testScript.onerror = () => {
+        toast.error('Please disable ad blocker to proceed with payment');
+        setLoading(false);
+        return;
+      };
+
+      if (!paymentResponse.data.success) {
+        throw new Error(paymentResponse.data.message || 'Failed to create payment');
+      }
+
+      const isLoaded = await loadRazorpayScript();
+      if (!isLoaded) {
+        toast.error('Unable to load payment system. Please disable ad blocker.');
+        setLoading(false);
+        return;
+      }
+
+      initializeRazorpayPayment({
+        amount: paymentResponse.data.amount,
+        orderId: paymentResponse.data.orderId,
+        name: selectedAddress?.name || '',
+        email: localStorage.getItem('userEmail') || '',
+        contact: selectedAddress?.phone || ''
+      }, 
+      async (response) => {
+        try {
+          const verifyResponse = await axios.post(
+            'http://localhost:5050/api/payments/verify',
+            {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature
+            }
+          );
+
+          if (verifyResponse.data.success) {
+            // Create order and clear cart
+            await axios.post(
+              'http://localhost:5050/api/orders/create',
+              {
+                products: cartItems,
+                address: selectedAddress._id,
+                paymentDetails: response
+              },
+              { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            await axios.delete('http://localhost:5050/api/cart/clear', {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+
+            toast.success("Payment successful!");
+            navigate('/home', { replace: true }); // Added replace: true to prevent going back to checkout
+          }
+        } catch (error) {
+          toast.error("Payment verification failed");
+          console.error("Payment verification failed:", error);
+          setLoading(false);
+        }
+      },
+      () => {
+        setLoading(false);
+        toast.error("Payment cancelled");
+        setCheckoutStep('payment');
+      });
+
     } catch (error) {
-      console.error('Error placing order:', error);
-      toast.error('Failed to place order');
       setLoading(false);
+      toast.error(error.message || "Payment failed");
+      console.error("Payment error:", error);
+      setCheckoutStep('payment');
     }
+  };
+
+  const handlePlaceOrder = () => {
+    if (!selectedAddress) {
+      toast.error("Please select a shipping address");
+      return;
+    }
+
+    if (paymentMethod === 'razorpay') {
+      initiateRazorpayPayment();
+    } else if (paymentMethod === 'cod') {
+      // Handle COD order
+      // ... existing COD handling code ...
+    }
+  };
+
+  const handleQRPayment = () => {
+    setPaymentMethod('qr');
+    setShowQRModal(true);
   };
 
   const PaymentMethodSelector = () => (
@@ -102,18 +171,56 @@ const CheckoutPage = () => {
         Payment Method
       </h2>
       <div className="space-y-3">
-        <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-indigo-50 transition-colors">
+        <label 
+          className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-indigo-50 transition-colors"
+          onClick={() => {
+            setPaymentMethod('razorpay');
+            if (selectedAddress) {
+              initiateRazorpayPayment();
+            } else {
+              toast.error("Please select a shipping address first");
+            }
+          }}
+        >
           <input 
             type="radio" 
             name="payment" 
-            value="credit-card" 
-            checked={paymentMethod === 'credit-card'} 
-            onChange={() => setPaymentMethod('credit-card')}
+            value="razorpay" 
+            checked={paymentMethod === 'razorpay'} 
             className="h-5 w-5 text-indigo-600"
+            onChange={() => {}}
           />
           <div className="ml-3">
-            <p className="font-medium">Credit Card</p>
-            <p className="text-sm text-gray-500">Visa, Mastercard, American Express</p>
+            <p className="font-medium">Card/sNetbanking</p>
+            <p className="text-sm text-gray-500">Pay securely with Razorpay</p>
+          </div>
+        </label>
+
+        <label 
+          className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-indigo-50 transition-colors"
+          onClick={() => {
+            setPaymentMethod('upi');
+            if (selectedAddress) {
+              initiateRazorpayPayment();
+            } else {
+              toast.error("Please select a shipping address first");
+            }
+          }}
+        >
+          <input 
+            type="radio" 
+            name="payment" 
+            value="upi" 
+            checked={paymentMethod === 'upi'} 
+            className="h-5 w-5 text-indigo-600"
+            onChange={() => {}}
+          />
+          <div className="ml-3 flex items-center">
+            <Smartphone className="mr-2 text-indigo-600" size={20} />
+            <div>
+              <p className="font-medium">UPI Payment</p>
+              <p className="text-sm text-gray-500">Pay using any UPI app</p>
+            </div>
           </div>
         </label>
         
@@ -121,17 +228,44 @@ const CheckoutPage = () => {
           <input 
             type="radio" 
             name="payment" 
-            value="paypal" 
-            checked={paymentMethod === 'paypal'} 
-            onChange={() => setPaymentMethod('paypal')}
+            value="cod" 
+            checked={paymentMethod === 'cod'} 
+            onChange={() => setPaymentMethod('cod')}
             className="h-5 w-5 text-indigo-600"
           />
           <div className="ml-3">
-            <p className="font-medium">PayPal</p>
-            <p className="text-sm text-gray-500">Pay with your PayPal account</p>
+            <p className="font-medium">Cash on Delivery</p>
+            <p className="text-sm text-gray-500">Pay when you receive</p>
+          </div>
+        </label>
+
+        <label 
+          className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-indigo-50 transition-colors"
+          onClick={handleQRPayment}
+        >
+          <input 
+            type="radio" 
+            name="payment" 
+            value="qr" 
+            checked={paymentMethod === 'qr'} 
+            className="h-5 w-5 text-indigo-600"
+            onChange={() => {}}
+          />
+          <div className="ml-3 flex items-center">
+            <QrCode className="mr-2 text-indigo-600" size={20} />
+            <div>
+              <p className="font-medium">Scan QR Code</p>
+              <p className="text-sm text-gray-500">Pay using QR code</p>
+            </div>
           </div>
         </label>
       </div>
+
+      <QRCodeModal 
+        isOpen={showQRModal}
+        onClose={() => setShowQRModal(false)}
+        amount={calculateTotals().total}
+      />
     </div>
   );
 
@@ -156,18 +290,22 @@ const CheckoutPage = () => {
           </div>
           <span className="text-sm mt-1 font-medium">Review</span>
         </div>
+        
         <div className="flex-1 h-1 mx-2 bg-gray-200">
           <div className={`h-full ${checkoutStep === 'payment' || checkoutStep === 'confirmation' ? 'bg-indigo-600' : 'bg-gray-200'}`} style={{ width: '100%' }}></div>
         </div>
+        
         <div className="flex flex-col items-center">
           <div className={`h-10 w-10 rounded-full flex items-center justify-center ${checkoutStep === 'payment' || checkoutStep === 'confirmation' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}>
             <CreditCard size={18} />
           </div>
           <span className="text-sm mt-1 font-medium">Payment</span>
         </div>
+        
         <div className="flex-1 h-1 mx-2 bg-gray-200">
           <div className={`h-full ${checkoutStep === 'confirmation' ? 'bg-indigo-600' : 'bg-gray-200'}`} style={{ width: '100%' }}></div>
         </div>
+        
         <div className="flex flex-col items-center">
           <div className={`h-10 w-10 rounded-full flex items-center justify-center ${checkoutStep === 'confirmation' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}>
             <Truck size={18} />
