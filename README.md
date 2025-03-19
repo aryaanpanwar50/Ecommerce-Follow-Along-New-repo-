@@ -823,3 +823,31 @@ project-root/
 * **Committed** the "My Orders" page and **navigation updates** to the repository.
  
 ---
+
+# ❌ Milestone 28: Cancel Order Functionality
+
+## 🎨 Frontend Integration
+* Added a **"Cancel Order"** button to each order displayed on the **"My Orders"** page.
+* **Excluded** the button for orders that are already canceled.
+
+## 🖥️ Backend Endpoint
+* Created an **endpoint** to receive the **order ID**.
+
+## 🔄 Order Status Update
+* Retrieved the **order using the provided ID**.
+* Updated the **order status** to `"canceled"`.
+* Saved the **changes to the database**.
+
+## 🎭 Conditional Rendering
+* Implemented **logic** to **hide the "Cancel Order" button** if the order is already canceled.
+
+## ✅ Testing
+* Verified the **cancel order functionality** by:
+  * Testing the **button click event**.
+  * Confirming the **status update in the database**.
+
+## 📝 GitHub Updates
+* **Committed** the **cancel order functionality** and **endpoint implementation** to the repository.
+
+---
+
