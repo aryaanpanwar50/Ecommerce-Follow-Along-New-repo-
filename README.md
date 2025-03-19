@@ -851,3 +851,25 @@ project-root/
 
 ---
 
+# 💳 Milestone 29: Payment Method Selection and Razorpay Integration
+
+## 🛒 Payment Options
+* Added **radio buttons** on the **order confirmation page** to allow users to select between:
+  * 🏠 **Cash on Delivery (COD)**
+  * 💻 **Online Payment**
+
+## ⚡ Razorpay Integration
+* When the **"Online Payment"** option is selected, **Razorpay payment buttons** are displayed.
+
+## 🔧 Razorpay Setup
+* **Created a Razorpay account** and obtained the **necessary API keys**.
+* Saved the **Razorpay Client ID** for integration.
+
+## ✅ Testing
+* Verified that the **Razorpay payment buttons** are displayed correctly when the **"Online Payment"** option is selected.
+
+## 📝 GitHub Updates
+* **Committed** the **payment method selection** and **Razorpay button display logic** to the repository.
+
+
+---
