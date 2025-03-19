@@ -801,3 +801,25 @@ project-root/
 
 ---
 
+# 📦 Milestone 27: My Orders Page
+
+## 🚀 Frontend Page
+* Created a **"My Orders"** page to display all orders placed by the user.
+
+## 🔄 Data Fetching
+* Implemented a **GET request** to the `"my-orders"` endpoint.
+* Sent the **user's email** to retrieve their orders.
+
+## 🎨 Dynamic Display
+* Displayed **all user orders** on the page dynamically.
+
+## 🗺️ Navigation
+* Added a **link** to the "My Orders" page in the **navigation bar** for easy access.
+
+## ✅ Testing
+* Verified the **display of user orders** on the "My Orders" page.
+
+## 📝 GitHub Updates
+* **Committed** the "My Orders" page and **navigation updates** to the repository.
+ 
+---
