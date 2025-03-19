@@ -15,6 +15,7 @@ import AddressForm from './Pages/Address Form/AddressForm';
 import SelectAddress from './Pages/Order/SelectAddress'
 import AddressFormForCart from './Pages/Address Form/AddressFormForCart';
 import CheckoutPage from './Pages/Order/CheckoutPage'
+import MyOrder from './Pages/Order/MyOrder';
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
           <Route path='/choose-address' element={<SelectAddress/>}></Route>
           <Route path="/select-address" element={<SelectAddress />} />
           <Route path="/checkout-page" element={<CheckoutPage />} />
+          <Route path='/my-order' element={<MyOrder></MyOrder>}></Route>
         </Routes>
       </Router>
     </div>

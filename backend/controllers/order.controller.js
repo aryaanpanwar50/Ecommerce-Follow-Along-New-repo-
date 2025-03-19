@@ -1,39 +1,65 @@
 const Order = require('../models/order.model');
-const User = require('../models/user.model');
 
 exports.createOrder = async (req, res) => {
     try {
-        const { products, address, userEmail } = req.body;
-        
-        // Find user by email
-        const user = await User.findOne({ email: userEmail });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+        const { products } = req.body;
+        // Get user ID from auth token payload
+        const userId = req.user.userId || req.user.id;
+
+        if (!userId || !products || products.length === 0) {
+            return res.status(400).json({ 
+                message: 'Invalid request data' 
+            });
         }
 
-        const orders = [];
-        
-        // Create separate order for each product
-        for (const product of products) {
-            const newOrder = new Order({
-                userId: user._id,
-                productId: product.productId,
-                quantity: product.quantity,
-                address: address
-            });
-            
-            const savedOrder = await newOrder.save();
-            orders.push(savedOrder);
-        }
+        const orders = await Promise.all(
+            products.map(async (product) => {
+                try {
+                    const order = new Order({
+                        user: userId,
+                        productId: product.productId,
+                        productName: product.productName,
+                        quantity: product.quantity,
+                        price: product.price,
+                        imageUrl: product.imageUrl,
+                        status: 'pending'
+                    });
+                    return await order.save();
+                } catch (err) {
+                    console.error('Error creating individual order:', err);
+                    throw err;
+                }
+            })
+        );
 
         res.status(201).json({ 
+            success: true,
             message: 'Orders created successfully',
-            orders: orders 
+            orders 
         });
 
     } catch (error) {
+        console.error('Order creation error details:', error);
         res.status(500).json({ 
+            success: false,
             message: 'Error creating orders',
+            error: error.message 
+        });
+    }
+};
+
+exports.getOrders = async (req, res) => {
+    try {
+        const userId = req.user.userId || req.user.id;
+        const orders = await Order.find({ user: userId })
+            .sort({ createdAt: -1 });
+
+        res.status(200).json(orders);
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error fetching orders',
             error: error.message 
         });
     }

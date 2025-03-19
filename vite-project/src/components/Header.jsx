@@ -14,6 +14,7 @@ const Header = () => {
             <li><Link to="/" className="hover:text-purple-500">Home</Link></li>
             <li><Link to="#" className="hover:text-purple-500">My-products</Link></li>
             <li><Link to="/add-product" className="hover:text-purple-500">Add Product</Link></li>
+            <li><Link to="/my-order" className="hover:text-purple-500">My Order</Link></li>
           </ul>
         </nav>
         <div className="flex items-center space-x-4">

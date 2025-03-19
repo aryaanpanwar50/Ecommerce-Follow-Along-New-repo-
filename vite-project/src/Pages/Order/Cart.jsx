@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { ShoppingCart, Plus, Minus, Trash2 } from "lucide-react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 const Cart = (props) => {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const {
     id,
@@ -18,30 +19,31 @@ const Cart = (props) => {
     imageUrl,
   } = props;
 
-
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
-        const response = await axios.get(
-          "http://localhost:5050/api/cart/getCart",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-        setCartItems(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        if (error.response?.status === 401) {
-          // Handle unauthorized access - maybe redirect to login
-          toast.error("Please login to view your cart");
-        }
-      }
-    };
-    fetchProducts();
+    fetchCartItems();
   }, []);
+
+  const fetchCartItems = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('Please login to view cart');
+        return;
+      }
+      
+      const response = await axios.get(
+        "http://localhost:5050/api/cart/getCart",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      setCartItems(response.data);
+    } catch (error) {
+      toast.error("Failed to fetch cart items");
+    }
+  };
 
   const removeFromCart = async (productId) => {
     try {
@@ -73,6 +75,7 @@ const Cart = (props) => {
 
   const updateQuantity = async (productId, change) => {
     try {
+      const token = localStorage.getItem('token');
       const updatedCart = cartItems.map((item) => {
         if (item._id === productId) {
           const newQuantity = item.quantity + change;
@@ -88,7 +91,6 @@ const Cart = (props) => {
       
       if (updatedItem) {
         // Make API call to update quantity in backend
-        const token = localStorage.getItem('token');
         await axios.put(
           `http://localhost:5050/api/cart/updateQuantity/${productId}`,
           { quantity: updatedItem.quantity },
@@ -115,6 +117,51 @@ const Cart = (props) => {
         theme: "dark",
       });
       console.error("Error updating quantity:", error);
+    }
+  };
+
+  const handlePlaceOrder = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('Please login to place order');
+        return;
+      }
+
+      const response = await axios.post(
+        'http://localhost:5050/api/orders/create',
+        {
+          products: cartItems.map(item => ({
+            productId: item._id,
+            quantity: item.quantity,
+            productName: item.productName,
+            price: item.price,
+            imageUrl: item.imageUrl
+          }))
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      if (response.status === 201) {
+        // Clear cart in the database
+        // await axios.delete('http://localhost:5050/api/cart/clearCart', {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`
+        //   }
+        // });
+        toast.success('Order placed successfully!',{
+          onClose:()=>{
+            navigate('/select-address')
+          }
+        });
+        setCartItems([]);
+      }
+    } catch (error) {
+      toast.error('Failed to place order')
     }
   };
 
@@ -230,10 +277,11 @@ const Cart = (props) => {
                           ${calculateTotal().toFixed(2)}
                         </p>
                       </div>
-                      <button className="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
-                        <Link to='/choose-address'>
-                          Place Order
-                        </Link>
+                      <button 
+                        onClick={handlePlaceOrder}
+                        className="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+                      >
+                        Place Order
                       </button>
                     </div>
                   </div>

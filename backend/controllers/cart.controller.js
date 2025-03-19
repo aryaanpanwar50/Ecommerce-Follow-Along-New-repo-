@@ -109,4 +109,21 @@ const updateCartQuantity = async (req, res) => {
   }
 };
 
-module.exports = { addCart, getCart, deleteCart, updateCartQuantity };
+const clearCart = async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    const decoded = verifyToken(token);
+    
+    if (!decoded) {
+      return res.status(401).send("Unauthorized");
+    }
+
+    // Delete all cart items for the current user using decoded.userId
+    await Cart.deleteMany({ userId: decoded.userId });
+    res.status(200).json({ message: "Cart cleared successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error clearing cart", error: error.message });
+  }
+};
+
+module.exports = { addCart, getCart, deleteCart, updateCartQuantity, clearCart };

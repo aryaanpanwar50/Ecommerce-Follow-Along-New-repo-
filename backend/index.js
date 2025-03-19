@@ -8,7 +8,7 @@ const orderRoutes = require('./routes/order.routes');
 const cors = require("cors")
 const app = express();
 require('dotenv').config();
-const PORT = process.env.PORT || 5050
+const PORT = process.env.PORT || 5080
 
 
 app.get('/',cors(),(req,res)=>{
@@ -19,7 +19,7 @@ app.get('/',cors(),(req,res)=>{
         res.status(500).send("Server Error")
     }
     
-});
+})
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
