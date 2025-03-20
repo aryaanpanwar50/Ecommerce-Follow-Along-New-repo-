@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,6 +14,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,6 +30,11 @@ export default function Login() {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('userData', JSON.stringify(response.data.user));
         
+        dispatch({ 
+          type: 'SET_USER_EMAIL', 
+          payload: response.data.user.email // Use email from server response
+        });
+
         await new Promise((resolve) => {
           toast.success('Login Successfully', {
             position: "top-right",

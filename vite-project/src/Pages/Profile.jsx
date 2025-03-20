@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { User, Mail, MapPin, Plus, Palette } from 'lucide-react';
 import axios from 'axios';
@@ -40,6 +41,7 @@ const ProfileDisplay = () => {
   const [currentTheme, setCurrentTheme] = useState('emerald');
   const [profile, setProfile] = useState({});
   const [newAddress, setNewAddress] = useState('');
+  const userEmail = useSelector((state) => state.user.email);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +148,7 @@ const ProfileDisplay = () => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium">{profile.email}</p>
+                <p className="font-medium">{userEmail || profile.email}</p>
               </div>
             </motion.div>
           </div>

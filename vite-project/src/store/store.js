@@ -1,23 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  email: ''
-};
-
-function userReducer(state = initialState, action) {
-  switch (action.type) {
-    case 'SET_EMAIL':
-      return {
-        ...state,
-        email: action.payload
-      };
-    default:
-      return state;
-  }
-}
-
-export const store = configureStore({
-  reducer: {
-    user: userReducer
-  }
+const userSlice = createSlice({
+  name: "user",
+  initialState: { email: "" },
+  reducers: {
+    setEmail: (state, action) => {
+      state.email = action.payload;
+    },
+  },
 });
+
+export const { setEmail } = userSlice.actions;
+
+const store = configureStore({
+  reducer: {
+    user: userSlice.reducer,
+  },
+});
+
+export { store };
