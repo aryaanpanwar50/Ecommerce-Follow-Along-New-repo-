@@ -64,7 +64,7 @@ export default function AddProduct() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5050/api/products/add', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND}/api/products/add`, {
         productName,
         productDescription,
         productType,

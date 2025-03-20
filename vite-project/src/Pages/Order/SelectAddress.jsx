@@ -42,7 +42,7 @@ const SelectAddress = () => {
         throw new Error('No auth token found');
       }
 
-      const response = await axios.get('http://localhost:5050/api/addresses/my-addresses');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND}/api/addresses/my-addresses`);
       setAddresses(response.data);
       setError(null);
     } catch (err) {
@@ -75,7 +75,7 @@ const SelectAddress = () => {
 
   const handleDeleteAddress = async (addressId) => {
     try {
-      await axios.delete(`http://localhost:5050/api/addresses/${addressId}`);
+      await axios.delete(`${import.meta.env.VITE_BACKEND}/api/addresses/${addressId}`);
       await fetchAddresses(); // Refresh the list after deletion
       toast.success('Address deleted successfully');
     } catch (err) {

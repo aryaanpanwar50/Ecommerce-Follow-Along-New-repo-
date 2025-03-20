@@ -36,7 +36,7 @@ const ProductCard = (props) => {
       try {
         const token = Cookies.get("token");
         const response = await axios.get(
-          "http://localhost:5050/api/cart/getCart",
+          `${import.meta.env.VITE_BACKEND}/api/cart/getCart`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ const ProductCard = (props) => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:5050/api/products/delete/${productId}`
+        `${import.meta.env.VITE_BACKEND}/api/products/delete/${productId}`
       );
 
       await new Promise((resolve) => {
@@ -109,7 +109,7 @@ const ProductCard = (props) => {
       };
 
       await axios.post(
-        `http://localhost:5050/api/cart/addCart`,
+        `${import.meta.env.VITE_BACKEND}/api/cart/addCart`,
         cartItem,
         {
           headers: {

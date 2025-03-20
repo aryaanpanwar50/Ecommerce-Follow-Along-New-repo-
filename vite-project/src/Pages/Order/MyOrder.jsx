@@ -23,7 +23,7 @@ function MyOrder() {
           });
           navigate('/login');
         }
-        const orderResponse = await axios.get('http://localhost:5050/api/orders/getOrders', {
+        const orderResponse = await axios.get(`${import.meta.env.VITE_BACKEND}/api/orders/getOrders`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrderItems(orderResponse.data);
@@ -43,7 +43,7 @@ function MyOrder() {
       setDisabledButtons(prev => new Set([...prev, orderId]));
       setCancelingOrders(prev => new Set([...prev, orderId]));
       const token = cookies.get('token');
-      const response = await axios.put(`http://localhost:5050/api/orders/cancel/${orderId}`, {}, {
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND}/api/orders/cancel/${orderId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -85,7 +85,7 @@ function MyOrder() {
     try {
       setDisabledButtons(prev => new Set([...prev, orderId]));
       const token = cookies.get('token');
-      const response = await axios.delete(`http://localhost:5050/api/orders/delete/${orderId}`, {
+      const response = await axios.delete(`${import.meta.env.VITE_BACKEND}/api/orders/delete/${orderId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

@@ -8,7 +8,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5050/api/products/get');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND}/api/products/get`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);

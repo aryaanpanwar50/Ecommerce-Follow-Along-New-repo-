@@ -21,7 +21,7 @@ const CheckoutPage = () => {
     const fetchCartAndAddress = async () => {
       try {
         const token = Cookies.get('token');
-        const cartResponse = await axios.get('http://localhost:5050/api/cart/getCart', {
+        const cartResponse = await axios.get(`${import.meta.env.VITE_BACKEND}/api/cart/getCart`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setCartItems(cartResponse.data);
@@ -64,7 +64,7 @@ const CheckoutPage = () => {
 
       setLoading(true);
       const paymentResponse = await axios.post(
-        'http://localhost:5050/api/payments/checkout', // Updated endpoint
+        `${import.meta.env.VITE_BACKEND}/api/payments/checkout`, // Updated endpoint
         { total: Math.round(total * 100) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -99,7 +99,7 @@ const CheckoutPage = () => {
       async (response) => {
         try {
           const verifyResponse = await axios.post(
-            'http://localhost:5050/api/payments/verify',
+            `${import.meta.env.VITE_BACKEND}/api/payments/verify`,
             {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
@@ -110,7 +110,7 @@ const CheckoutPage = () => {
           if (verifyResponse.data.success) {
             // Create order and clear cart
             await axios.post(
-              'http://localhost:5050/api/orders/create',
+              `${import.meta.env.VITE_BACKEND}/api/orders/create`,
               {
                 products: cartItems,
                 address: selectedAddress._id,
@@ -119,7 +119,7 @@ const CheckoutPage = () => {
               { headers: { Authorization: `Bearer ${token}` } }
             );
 
-            await axios.delete('http://localhost:5050/api/cart/clear', {
+            await axios.delete(`${import.meta.env.VITE_BACKEND}/api/cart/clear`, {
               headers: { Authorization: `Bearer ${token}` }
             });
 

@@ -36,7 +36,7 @@ const Cart = (props) => {
       }
       
       const response = await axios.get(
-        "http://localhost:5050/api/cart/getCart",
+        `${import.meta.env.VITE_BACKEND}/api/cart/getCart`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -53,7 +53,7 @@ const Cart = (props) => {
     try {
       const token = Cookies.get('token');
       await axios.delete(
-        `http://localhost:5050/api/cart/deleteCart/${productId}`,
+        `${import.meta.env.VITE_BACKEND}/api/cart/deleteCart/${productId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -96,7 +96,7 @@ const Cart = (props) => {
       if (updatedItem) {
         // Make API call to update quantity in backend
         await axios.put(
-          `http://localhost:5050/api/cart/updateQuantity/${productId}`,
+          `${import.meta.env.VITE_BACKEND}/api/cart/updateQuantity/${productId}`,
           { quantity: updatedItem.quantity },
           {
             headers: {
@@ -133,7 +133,7 @@ const Cart = (props) => {
       }
 
       const response = await axios.post(
-        'http://localhost:5050/api/orders/create',
+        `${import.meta.env.VITE_BACKEND}/api/orders/create`,
         {
           products: cartItems.map(item => ({
             productId: item._id,

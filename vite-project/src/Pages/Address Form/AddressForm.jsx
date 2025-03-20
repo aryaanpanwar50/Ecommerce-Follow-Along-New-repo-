@@ -33,7 +33,7 @@ const AddressForm = () => {
       })`;
 
       const response = await axios.put(
-        "http://localhost:5050/api/profile/address",
+        `${import.meta.env.VITE_BACKEND}/api/profile/address`,
         { address: formattedAddress },
         {
           headers: {
