@@ -932,3 +932,39 @@ project-root/
 
 ## 📝 GitHub Updates
 * **Committed** the Redux authentication state management changes to the repository.
+
+---
+
+# 🔑 Milestone 33: JWT Token Generation and Cookie Storage
+
+## 📦 JWT Package Installation
+* Installed **jsonwebtoken** using **NPM**.
+
+## 🔐 Token Creation
+* Used the `sign` method to create a **JWT token** containing the **user's email and ID**.
+* Set `maxAge` to define an **expiration time** for the token.
+
+## 🍪 Cookie Storage
+* Added the **JWT token** inside the response as a **cookie** to store it in the browser.
+
+---
+
+# 🔍 Milestone 34: JWT Validation and Authentication Middleware
+
+## 🔄 Token Retrieval
+* Extracted the **JWT token** from browser cookies and sent it to the backend.
+
+## 🛡 Middleware Implementation
+* Created a **middleware function** in the backend to **validate the received JWT token**.
+
+## 🚪 Authentication Enforcement
+* Ensured that users **cannot access protected pages** without a **valid login**.
+
+## ✅ Testing
+* Verified that **unauthorized users** are **blocked** from accessing restricted pages.
+
+## 📝 GitHub Updates
+* **Committed** the JWT implementation, authentication middleware, and token validation logic to the repository.
+
+---
+
