@@ -2,17 +2,27 @@ import { useState, useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import Cookies from 'universal-cookie';
+import {useNavigate } from 'react-router-dom'
+ 
 function MyOrder() {
   const [orderItems, setOrderItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [disabledButtons, setDisabledButtons] = useState(new Set());
   const [cancelingOrders, setCancelingOrders] = useState(new Set());
+  const cookies = new Cookies();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = cookies.get('token');
+        if (!token) {
+          toast.error('Please login to view my cart',{
+            autoClose: 2000,
+          });
+          navigate('/login');
+        }
         const orderResponse = await axios.get('http://localhost:5050/api/orders/getOrders', {
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -32,7 +42,7 @@ function MyOrder() {
     try {
       setDisabledButtons(prev => new Set([...prev, orderId]));
       setCancelingOrders(prev => new Set([...prev, orderId]));
-      const token = localStorage.getItem('token');
+      const token = cookies.get('token');
       const response = await axios.put(`http://localhost:5050/api/orders/cancel/${orderId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -74,7 +84,7 @@ function MyOrder() {
   const handleDeleteOrder = async (orderId) => {
     try {
       setDisabledButtons(prev => new Set([...prev, orderId]));
-      const token = localStorage.getItem('token');
+      const token = cookies.get('token');
       const response = await axios.delete(`http://localhost:5050/api/orders/delete/${orderId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
