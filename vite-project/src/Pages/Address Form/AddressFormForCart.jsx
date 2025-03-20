@@ -29,8 +29,8 @@ const AddressForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5050/api/addresses", 
-        addressData,  // Changed this line to send the complete address data
+        `${import.meta.env.VITE_BACKEND}/api/addresses`, 
+        addressData,
         {
           headers: {
             'Content-Type': 'application/json'
