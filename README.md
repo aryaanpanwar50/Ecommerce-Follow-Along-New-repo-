@@ -968,3 +968,17 @@ project-root/
 
 ---
 
+# 🚀 Milestone 35: Deployment of Frontend and Backend
+
+## 🌐 Backend Deployment
+* **Deployed** the backend using a deployment service.
+* **Replaced** `localhost` with the **backend deployment URL** in the frontend.
+
+## 🎨 Frontend Deployment
+* **Deployed** the frontend using a deployment service.
+
+## ✅ Final Testing
+* Ensured that both the **frontend and backend** were correctly **deployed and working** as expected.
+
+## 📝 GitHub Updates
+* **Committed** all final **deployment-related changes** to the repository.
