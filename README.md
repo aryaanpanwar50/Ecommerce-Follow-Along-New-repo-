@@ -890,3 +890,29 @@ project-root/
 
 ## 📝 GitHub Updates
 * **Committed** the **Razorpay payment integration** and related **components** to the repository.
+
+---
+
+# 🌍 Milestone 31: Global State Management with Redux
+
+## 📦 NPM Package Installation
+* Installed **react-redux** to manage global state.
+
+## 🏗 Store Setup
+* Created a **store folder** with:
+  - **store.js** → Configured the Redux store.
+  - **userActions.js** → Defined actions for managing user state.
+* Configured a **Redux store** in `store.js` with a `userReducer` function to handle the **global email state**.
+
+## 🔄 State Management
+* Created a `setEmail` function inside `userActions.js` to **update the global email state**.
+
+## 🔗 Provider Setup
+* Wrapped the **App component** inside the `Provider` component in `index.js` and passed the **store** as a prop.
+
+## ✅ Outcome
+* Successfully implemented **global state management** using **Redux** in the application.
+* Improved **state handling efficiency** across components.
+
+## 📝 GitHub Updates
+* **Committed** the Redux store setup, user actions, and `Provider` implementation to the repository.
