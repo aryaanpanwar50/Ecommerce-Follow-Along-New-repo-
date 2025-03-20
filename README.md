@@ -916,3 +916,19 @@ project-root/
 
 ## 📝 GitHub Updates
 * **Committed** the Redux store setup, user actions, and `Provider` implementation to the repository.
+
+---
+
+# 🔐 Milestone 32: Using Redux for Authentication State
+
+## 🚀 Dispatch in Login Page
+* Implemented the **dispatch method** in the **login page** to store the **user's email** in the global state.
+
+## 🌍 Accessing Global State
+* Used `useSelector` to **access the stored email** across all relevant pages.
+
+## ✅ Testing
+* Verified that the **email is correctly stored and accessed** across different pages.
+
+## 📝 GitHub Updates
+* **Committed** the Redux authentication state management changes to the repository.
