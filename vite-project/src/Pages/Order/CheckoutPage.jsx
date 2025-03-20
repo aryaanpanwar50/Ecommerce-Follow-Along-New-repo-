@@ -124,7 +124,7 @@ const CheckoutPage = () => {
             });
 
             toast.success("Payment successful!");
-            navigate('/home', { replace: true }); // Added replace: true to prevent going back to checkout
+            navigate('/home'); // Added replace: true to prevent going back to checkout
           }
         } catch (error) {
           toast.error("Payment verification failed");
