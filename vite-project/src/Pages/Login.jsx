@@ -5,6 +5,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import image1 from "../assets/image6.webp"
 
@@ -27,8 +28,9 @@ export default function Login() {
       });
 
       if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userData', JSON.stringify(response.data.user));
+        // Set cookies with expiration of 7 days
+        Cookies.set('token', response.data.token, { expires: 7 });
+        Cookies.set('userData', JSON.stringify(response.data.user), { expires: 7 });
         
         dispatch({ 
           type: 'SET_USER_EMAIL', 

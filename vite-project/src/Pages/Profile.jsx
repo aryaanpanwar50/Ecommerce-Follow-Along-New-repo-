@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { User, Mail, MapPin, Plus, Palette } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const themes = {
   emerald: {
@@ -46,12 +47,11 @@ const ProfileDisplay = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token');
         if (!token) {
           navigate('/login');
           return;
         }
-
 
         const response = await axios.get('http://localhost:5050/api/profile', {
           headers: {

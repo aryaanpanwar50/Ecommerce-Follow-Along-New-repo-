@@ -4,6 +4,14 @@ import { MapPin, Plus, Edit, Trash2, Check } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom'; // Fix import
 import axios from 'axios';
 import { toast } from 'react-hot-toast'; // Add toast for notifications
+import Cookies from 'js-cookie';
+
+// Add cookie helper function
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
 
 const SelectAddress = () => {
   const navigate = useNavigate();
@@ -13,10 +21,9 @@ const SelectAddress = () => {
   const [error, setError] = useState(null);
   const [cartItems, setCartItems] = useState([]);
 
-  // Add axios configuration with auth token
+  // Update axios configuration to use cookie
   useEffect(() => {
-    // Configure axios to include auth token
-    const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+    const token = Cookies.get('token');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
@@ -30,7 +37,7 @@ const SelectAddress = () => {
   const fetchAddresses = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       if (!token) {
         throw new Error('No auth token found');
       }

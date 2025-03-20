@@ -4,6 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from 'js-cookie';
 
 const Cart = (props) => {
   const navigate = useNavigate();
@@ -25,9 +26,12 @@ const Cart = (props) => {
 
   const fetchCartItems = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       if (!token) {
-        toast.error('Please login to view cart');
+        toast.error('Please login to view cart',{
+          autoClose: 2000,
+        });
+        navigate('/login');
         return;
       }
       
@@ -47,7 +51,7 @@ const Cart = (props) => {
 
   const removeFromCart = async (productId) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       await axios.delete(
         `http://localhost:5050/api/cart/deleteCart/${productId}`,
         {
@@ -75,7 +79,7 @@ const Cart = (props) => {
 
   const updateQuantity = async (productId, change) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       const updatedCart = cartItems.map((item) => {
         if (item._id === productId) {
           const newQuantity = item.quantity + change;
@@ -122,7 +126,7 @@ const Cart = (props) => {
 
   const handlePlaceOrder = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');
       if (!token) {
         toast.error('Please login to place order');
         return;

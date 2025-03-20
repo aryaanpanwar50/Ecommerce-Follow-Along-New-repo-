@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import Cookies from 'js-cookie';
 import "react-toastify/dist/ReactToastify.css";
+
+// Add cookie helper function
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
 
 const ProductCard = (props) => {
   // destructuring both id and _id from props in case the backend sends _id
@@ -26,7 +34,7 @@ const ProductCard = (props) => {
   useEffect(() => {
     const checkCartStatus = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = Cookies.get("token");
         const response = await axios.get(
           "http://localhost:5050/api/cart/getCart",
           {
@@ -85,7 +93,7 @@ const ProductCard = (props) => {
   const handleAddToCart = async () => {
     if (isInCart) return;
     try {
-      const token = localStorage.getItem("token");
+      const token = Cookies.get("token");
       if (!token) {
         toast.error("Please login to add items to cart");
         return;

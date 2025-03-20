@@ -103,3 +103,40 @@ exports.cancelOrder = async (req, res) => {
         });
     }
 };
+
+exports.deleteOrder = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const userId = req.user.userId || req.user.id;
+
+        const order = await Order.findOne({ _id: orderId, user: userId });
+        
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: 'Order not found'
+            });
+        }
+
+        if (order.status !== 'canceled') {
+            return res.status(400).json({
+                success: false,
+                message: 'Only canceled orders can be deleted'
+            });
+        }
+
+        await Order.findByIdAndDelete(orderId);
+
+        res.status(200).json({
+            success: true,
+            message: 'Order deleted successfully'
+        });
+    } catch (error) {
+        console.error('Error deleting order:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error deleting order',
+            error: error.message
+        });
+    }
+};

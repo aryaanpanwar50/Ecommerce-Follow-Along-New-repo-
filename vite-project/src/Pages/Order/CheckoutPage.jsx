@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import { ShoppingBag, MapPin, CreditCard, ChevronRight, ArrowLeft, Truck, Smartphone, QrCode } from 'lucide-react';
 import { loadRazorpayScript, initializeRazorpayPayment } from '../../utils/razorpay';
 import QRCodeModal from '../../components/QRCodeModal';
+import Cookies from 'js-cookie';
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const CheckoutPage = () => {
   useEffect(() => {
     const fetchCartAndAddress = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token');
         const cartResponse = await axios.get('http://localhost:5050/api/cart/getCart', {
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -58,7 +59,7 @@ const CheckoutPage = () => {
 
   const initiateRazorpayPayment = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = Cookies.get("token");
       const total = calculateTotals().total;
 
       setLoading(true);
@@ -92,7 +93,7 @@ const CheckoutPage = () => {
         amount: paymentResponse.data.amount,
         orderId: paymentResponse.data.orderId,
         name: selectedAddress?.name || '',
-        email: localStorage.getItem('userEmail') || '',
+        email: Cookies.get('userEmail') || '',
         contact: selectedAddress?.phone || ''
       }, 
       async (response) => {
@@ -320,7 +321,7 @@ const CheckoutPage = () => {
     <div className="bg-gray-50 min-h-screen py-12">
       <div className="max-w-6xl mx-auto px-4">
         <button 
-          onClick={() => navigate(-1)} 
+          onClick={() => navigate('/home')} 
           className="flex items-center text-indigo-600 mb-6 transition-colors hover:text-indigo-800"
         >
           <ArrowLeft size={16} className="mr-1" />

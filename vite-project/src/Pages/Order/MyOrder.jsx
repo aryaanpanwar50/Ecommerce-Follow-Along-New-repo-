@@ -7,6 +7,7 @@ function MyOrder() {
   const [orderItems, setOrderItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [disabledButtons, setDisabledButtons] = useState(new Set());
+  const [cancelingOrders, setCancelingOrders] = useState(new Set());
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -30,21 +31,61 @@ function MyOrder() {
   const handleCancelOrder = async (orderId) => {
     try {
       setDisabledButtons(prev => new Set([...prev, orderId]));
+      setCancelingOrders(prev => new Set([...prev, orderId]));
       const token = localStorage.getItem('token');
       const response = await axios.put(`http://localhost:5050/api/orders/cancel/${orderId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
       if (response.data.success) {
-        setOrderItems(orderItems.map(item => 
-          item._id === orderId ? { ...item, status: 'canceled' } : item
-        ));
-        toast.success('Order canceled successfully');
+        setTimeout(() => {
+          setOrderItems(orderItems.map(item => 
+            item._id === orderId ? { ...item, status: 'canceled' } : item
+          ));
+          setCancelingOrders(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(orderId);
+            return newSet;
+          });
+          setDisabledButtons(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(orderId);
+            return newSet;
+          });
+          toast.success('Order canceled successfully');
+        }, 2000);
       }
     } catch (error) {
       console.error('Error canceling order:', error);
       toast.error('Failed to cancel order');
-      // Remove from disabled buttons if failed
+      setCancelingOrders(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(orderId);
+        return newSet;
+      });
+      setDisabledButtons(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(orderId);
+        return newSet;
+      });
+    }
+  };
+
+  const handleDeleteOrder = async (orderId) => {
+    try {
+      setDisabledButtons(prev => new Set([...prev, orderId]));
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(`http://localhost:5050/api/orders/delete/${orderId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      if (response.data.success) {
+        setOrderItems(orderItems.filter(item => item._id !== orderId));
+        toast.success('Order deleted successfully');
+      }
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      toast.error('Failed to delete order');
       setDisabledButtons(prev => {
         const newSet = new Set(prev);
         newSet.delete(orderId);
@@ -90,7 +131,24 @@ function MyOrder() {
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <p className="text-gray-500">Price: ${item.price.toFixed(2)} each</p>
                       {item.status === 'canceled' ? (
-                        <span className="text-red-600">Canceled</span>
+                        <div className="flex gap-2">
+                          <span className="text-red-600">Canceled</span>
+                          <button
+                            onClick={() => handleDeleteOrder(item._id)}
+                            disabled={disabledButtons.has(item._id)}
+                            className={`px-4 py-2 rounded ${
+                              disabledButtons.has(item._id)
+                                ? 'bg-gray-400 cursor-not-allowed text-gray-100'
+                                : 'bg-red-800 hover:bg-red-900 text-white'
+                            }`}
+                          >
+                            {disabledButtons.has(item._id) ? 'Deleting...' : 'Delete Order'}
+                          </button>
+                        </div>
+                      ) : cancelingOrders.has(item._id) ? (
+                        <div className="flex items-center gap-2">
+                          <span className="text-yellow-600">Canceling...</span>
+                        </div>
                       ) : (
                         <button
                           onClick={() => handleCancelOrder(item._id)}
