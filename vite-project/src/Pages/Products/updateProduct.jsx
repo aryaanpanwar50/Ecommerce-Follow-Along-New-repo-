@@ -1,4 +1,3 @@
-
 import  { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -81,7 +80,7 @@ const UpdatePage = () => {
     };
 
     axios
-      .put(`http://localhost:5050/api/products/update/${id}`, updatedProduct)
+      .put(`${import.meta.env.VITE_BACKEND}/api/products/update/${id}`, updatedProduct)
       .then((response) => {
         new Promise((resolve) => {
 

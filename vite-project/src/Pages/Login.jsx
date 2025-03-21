@@ -22,7 +22,7 @@ export default function Login() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5050/api/login', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND}/api/login`, {
         email,
         password
       });

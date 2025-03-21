@@ -53,7 +53,7 @@ const ProfileDisplay = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:5050/api/profile', {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND}/api/profile`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -63,7 +63,7 @@ const SelectAddress = () => {
     // Fetch cart items when component mounts
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get('http://localhost:5050/api/cart/getCart');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND}/api/cart/getCart`);
         setCartItems(response.data);
       } catch (error) {
         console.error('Error fetching cart:', error);
